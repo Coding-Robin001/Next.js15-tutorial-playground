@@ -33,6 +33,15 @@ body {
   align-items: center;
   justify-content: center;
 }
+.main2{
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .main h1{
   font-size: 2rem;
