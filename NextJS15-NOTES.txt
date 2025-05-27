@@ -1,0 +1,259 @@
+
+NEXTJS 15
+
+
+day1
+
+- a react framework to create fullstack appps
+
+-NextJS simplifies the process of building production-ready web apps
+
+- uses react for building UIs but also offers more 
+fearutes(routing,data fecthing,optimized rendering) out of the box without needing 
+external libraries
+
+- nextjs has rules/conventions that must be followed to use/implmenet its features
+
+- some features nextjs gives us out of the box
+1. routing(no need for 3rdparty library like axios)
+2. it simplifies routing by using file-based routing
+3. allows api routes
+4. flexible rendering(supports both server-side and client-side rendering). when implemented
+properly, it improves performance and search engine optimzation
+5. strealined data-fetching(makes data fetching more straight-forward)with built-in async
+support in components 
+6. flexible styling approaches(css modules, tailwind, css-injected solutions) to 
+match user preference
+7. out-of-the-box optimization for images,fonts,scripts enhancing core app web vitals and
+overall user experience
+8. dev and prod build system
+
+
+-npx create-next-app@latest
+
+
+day2
+- generated a nextjs 15 app with the npx create-next-app@latest command, went with basic 
+installtion prompts
+- clicked yes to typescript,ESlint, appRouter,tailwind,and to SRC directory
+- rendwered my first 'hello world' in a nextjs app
+- studied the folder structure(mostly similar to react)
+- packkage.json holds all project dependencies, dev depepndecies and scripts
+- node_modules holds all installed dependencies
+- public folder holds all statuc assets like images/svgs
+- .next folder is where a nextJS gets served from in dev/prod mode
+- the SRC folder contains the app folder which is the app router(where the main/job is being
+done)
+- when we run yarn run dev, execution starts from package.json,moves into the
+layout.tsx rendering the root layout component,then looks for page.tsx folder in the app
+folder and renders it in the root layout
+- difference between page.tsx and layout.tsx in nextjs?
+- page.tsx slots into layout.tsx as one of its children
+
+
+day3
+- understanding React-server-component(RSC) as a prerequisite for understanding how routing
+works in nextjs
+ - RSC is a new architecturevintroduced by the react team and its adopted by nextjs
+- RSC architecture introduces new ways of creating react components by dividing them
+into 2 parts. 1.server components 2.client components
+- by default, all files in nexjs are treated as server components
+- server-side components performs basic server-side tasks eg reading files, fetching data
+directly from a db
+- trade off with server-side components is that they cant use react-hooks(useState,useEffect),
+or handle user interactions(forms)
+- client components are traditionl/typical reactvcomponents
+- to create client components you'll need to add "use client" at the top of component file
+- server-components waits for certain operation to complete before rendering content
+
+
+day4
+- routing in nextjs
+- nextjs uses a file-system based routing system
+- file-system based routing means URLs you can access in your browser are determined by how
+you organize your files and folders in your code
+- routing conventions/rules to remeber and adhere to
+1. all routes must live inside the app folder
+2. routes files must be named page.js or page.tsx depending on if you're using typescript
+3. each folder represents a segmentvof the URL path
+- routes are basically tid to their folder names within the app directory
+- navigate into app directory, create folder, the page.tsx/page.js file inide the folder 
+will automatically be treated as a route
+- nextJS automatically create a layout.tsx(behind-the-scene) when you try to acess the 
+root route
+- and if you try to aceess a path/route that hasnt been created(folder/page.tx not exist inside app
+dir, nextjs has you covered by automatically serving a notFound 404 page. no ned to create
+a page for that. cool.
+- eliminates the need to mess aroung installing/configuring routers in your code. nice
+- files and folders does all the heaving lifting concerning routing.
+- an exmaple of how nextjs favors conventions over configurations in routing and react generall
+
+*- sooo, only a server-component can be served as a route? if you mark the page with
+"client" it becomes a client component and will not be recognized as a route?
+
+
+
+
+day5
+- Nested routes
+- create sub-folders with a page.tsx inside the route folders. pretty-straighforward and effi
+cient
+- nextjs basically mirros the folder structure to create/render a url.
+
+
+day6
+Dynamic routes
+- predefined nested routes isnt always practical for complex apps/scenarios.
+- dynamic routes offer more flexiblility 
+- instaed of creating predefined nested routes for each elements(could be thousands which is
+obviously not realistic or scalable), we use dynamic routes by creating a special subfolder
+within the route folder but with square brackets, and then create a page.tsx route inside it
+- nextJS treates folder names in square brackets[] as dynamic segments making a route
+dynamic and flexible
+- it gets cooler.
+- every page defined in the app router recieves a route parameter through the 
+parameters prop
+- so params is an object that can be accessed/destructured in each page
+- the type of the params is a promise that resolves into an objectt containing the dynamic 
+segment as key value pairs
+- with server-components, we can use async await to resolve the promise and access the
+dynamic segment as key value pairs
+- the dynamic routes approach is super-useful for building list-detail views in complex apps.eg
+an eccormerce with millions of products with details, a blog with blogPosts/blogDetails
+-url loooks like "http://localhost:3000/product/ferrari2025"
+
+*- its a promise cos its not resolved yet? but when it resolves, we expect it to resolve
+as an object of key-value pair?
+
+code for day 6 or codeSharer
+import React from 'react'
+
+const ProductDetails = async ({ params, }: {
+    params: Promise<{ productId: string }>
+}) => {
+
+    const prodId = (await params).productId;
+
+    return (
+        <div className='main flex h-100 justify-center align-center'>
+            <h2 className='text-[1.5rem]'>Product details page, a dynamic subroute of product page</h2>
+            <p className='text-[1.8rem]'>details about product: <span className='text-[purple]'>{prodId}</span></p>
+        </div>
+    )
+}
+
+export default ProductDetails
+
+
+
+DAY7
+-nested dynamic routes
+- for handling multiple dynamic segments, alot of apps require it.
+- you need a "/products/1/review/1" routes to render/display review 1/review 2 of each productItem.
+- thats a multiple path segments. and we need to think in terms of nested folders
+- we create a review folder inside the [productId],then a special square bracket folder as a 
+dynamic route [reviewId], then a page.tsx within the sqaure bracket subroute.
+- in review page, we extract productId and reviewId from params(both are promises that resolves 
+into an object of keyvalue pairs)
+-url looks like "http://localhost:3000/product/ferrari2025/review/20"
+- we createvnested dynamic routes by using dynamic segments with nested folder names
+- nextjs has another way to handle multiple dynamic path segments called the "catch all segments"
+- each path after a slash/ is path segment. locahost:3000/product has one segment, /product/1, 2
+segments, /product/3/review/2 thats 4 path segments.
+
+-are pages generated from dynamic pages represented as sepreate/individual files for each path 
+behind the scenes or is it really just that one single file and the info is just being fetch 
+into it?
+
+
+DAY8
+CATCH ALL SEGMENTS(another powerful routing feature in NextJS
+- say we have 20features with 20concepts = 400routes. nextjs uses a file-based routing system which
+would mean 100seperate files in a project but with dynamic routing feature we can reduce that to
+i file for feature, one file for concept nested within the doc folder but say we want more
+segment paths? like a documentation sites where nesting goes deep. it could get ugly fast.
+- enter 'catch all segment' feature
+- its perfect for documentation sites where you want different url segments for organization and 
+seos but keep the same basic layout
+- 'catch all segment' feature shines when we want to reduce level of nesting in our routes folders.
+ the deeper the nesting the more chaotic and tedius to maintain.
+- since all pages in doc sites shares the same layout ,its smart to handle all route segments with
+one file with the help of the 'catch all egment' feature.
+- to set the 'catch-all-segment' feature up, we use a special nextjs naming convention where we 
+use square brackets with three dots followed by url/route representaion name[...slug]. all 
+route within this folder get caught by parent/main segment/route
+- the 'catch-all-segments' features essentially captures all url segments and handles them in a 
+single file
+- perfect for when ou want different segments urls for organization and seo but keep the 
+same basic layout
+- we basically use the slug aaray of url strings to fetch the right docs to the screen by extracting
+it from the params
+- ther is also an 'optional-catch-all-segment'. you do this by wrapping the slug segment inside
+an extra square brackets which makes a double square brackets [[...slugs]]
+
+
+
+
+
+
+
+
+day 9
+CREATING A CUSTOM 404 PAGE USING THE APP ROUTER
+- by default, nextjs gives us a default 404 page when you visit an invalid url/route that does not
+exist in the app folder
+- the customizable 'not-found' page must be named 'not-found.js'/'not-found.tsx'. its a nexjs
+naming convention thing
+- not-found page can also be triggered programmaticaly/in your code using the 'not-found' function
+provided by next/navigation
+
+    if (parseInt(reviewId) > 1000) {
+        notFound()
+    }
+
+- you can also create specific not-found page for different sections of your apps(cool)eg not-found
+page for reviews when it exceed 1000 as we've programtically stated.
+- nextjs uses the most specific not-found page it can find before defaulting to the global one
+- the not-found component does not accept props though
+- we can render dynamic content in the not-found page by extracting paths into the page with the
+pathname hook from nextjs/navigation
+
+
+
+day 10
+ understanding file collocation in nextjs
+- routes and other files can be collocated inside the app dir/folder
+- point of this is, you can safely collocate files inside the app directory without them being
+mistankenly treated as routes.
+- for a file to be treated as a route, it must satisfy the route conditions(inside app dir,and must
+be named as page.js/page.tsx
+- its also possible to keep other non-route files outside the app directory. you could create a
+new directory inside the src and keep them there. some prefer that approach
+
+
+
+day10B
+PRIVATE FOLDERS IN NEXTJS
+- just another way to organize files in your nextjs projects
+- like a way to tell nextjs "hey this folder is for internal logic/stuff, dont include it in
+the routing system"
+- the folders and subfolders are excluded from routing
+- to create a private folder, just add _ before the file name and it automatically excludes any file
+created within it from anything routing
+- they are super useful for keeping your UI logic seperate from routing logic
+- also easier to group related files in your code editor
+
+
+day11
+ROUTE GROUPS IN NEXTJS
+- basically lets us organize routes and project files without disrupting the url structure in a 
+nextjs app.
+- to use route groups, you wrap the folder in a parentheses which basically tells nextjs to
+ignore the folder as a route and treat it as a basic organizational tool
+- they allow multiple route files to be organized together in our code editor without disrupting
+urls definitions and structure
+-super useful when working with a group cos of how it helps organize and label
+
+
+
+
