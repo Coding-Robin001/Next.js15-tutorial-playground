@@ -1,10 +1,15 @@
 import React from 'react'
+import { notFound } from 'next/navigation';
 
 const ProductReview = async ({ params }: {
     params: Promise<{ productId: string, reviewId: string }>
 }) => {
 
     const { productId, reviewId } = (await params);
+
+    if (parseInt(reviewId) > 1000) {
+        notFound()
+    }
     return (
         <div className='main flex h-100 justify-center align-center'>
             <h2 className='text-[1.5rem]'>Product review page, another dynamic subroute nested within the product Details subroute</h2>
