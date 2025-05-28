@@ -255,5 +255,7 @@ urls definitions and structure
 -super useful when working with a group cos of how it helps organize and label
 
 
-
+INTERMISSION
+-i've explored pages so far, which are route-specific UI components
+- next, LAYOUTS IN NEXTJS
 
