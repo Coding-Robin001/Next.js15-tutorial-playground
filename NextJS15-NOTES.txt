@@ -259,3 +259,107 @@ INTERMISSION
 -i've explored pages so far, which are route-specific UI components
 - next, LAYOUTS IN NEXTJS
 
+
+
+DAY12
+ Layouts in nextjs(how they work, their importance
+- a layout is a UI that is shared between multiple pages in your app
+- we dont to create a layout from scratch, nextjs provides one by default. a layout.tsx file that
+follow the special nextjs file naming conventions.
+- the layout file in the app folder is called the root layout and is not optional. all nextjs app
+must have one
+- file so important, if you delete it, nextjs will automatically regenerate it lol
+- layout renders the page.tsx as children prop.  page.tsx is nested inside the layout file
+as a children prop which is a type of React.Node
+- layout stays consistent, the page.tsx components which is a route gets repleced and rendered 
+depending on the route we are on.
+- it ensures a consistent structure across the entire app. actually very easy/convinient
+
+
+
+- DAY 13
+NESTED LAYOUT IN NEXTJS
+- we can have a layout inside a layout in nextjs. useful for creating specific layouts for different
+section of our page. eg special layout for productDetails section.
+- all we need to do is add a layout.tsx(has to be layout.tsx, its a nextjs naming convention thing)
+ file inside productDetails folder
+- the layout.tsx is just another react components but will act as a layout specifically/only for the
+ dynamic productDetails page.(how cool is this?)
+- so, product page only has the root layout but product details page has not only the root layout 
+but also a special layout just for it.
+- the layout component acts as a children prop/page for the root layout and then the productDetails
+page becomes a children for the custom layout page created for it.
+- very powerful pattern and feature for creating custom and specialiized/nested layouts in nextjs 
+
+
+
+
+day 14
+- multiple root layouts in nextjs
+- eg say we want a part of our app/page not not have any customization that comes with the layout
+we defined.  
+- this is only possible in nextjs using routeGroups and obviosly why they are so powerful in nextjs
+- we just have to make sure no default layout.tsx file exist in app folder. we group files/routes
+together using route groups and create a sepcialized layoutsvfor each groups. simple and intuitive
+enough.
+- route groups makes our code organzied/maintainable but also allow us to create customized UIs 
+for different parts of our apps
+
+
+-DIFFERENCE between path/segment/subroute? can they be used interchangeably?
+www.localhost.com/about. is /about a subroute or a path or a segment ?
+
+day15
+ ROUTING METADATA IN NEXTJS
+- the metadata api in nextjs. a powerful featur that lets us define metadata for each page in nextjs
+which helps with SEO
+- defininf metadata ensures our content looks great when its shared or indexed by search engines
+helping with SEO
+- with the app router in nextjs, we have 2 ways to handle metadatas in layout.tsx or page.tsx files
+1. we cann export a static metadata object
+2. export a dynamic generateMetaData function
+
+- some rules about configuring metadata
+1. both layout.tsx and page.tsx files/pages can export metadata
+2 layout metadata applies to all pages while page.tsx metadata is specific only to that page
+3. metadata follow a top-down order, starting from root-level
+4. when metadata exists in multiple places along a route, they merge together, with page metadata
+overiding layout metadata for the case of any matching properties. deeper path segments take priority
+
+-for static metadata configuration, we create and export a metadata object. mostly straightforward.
+
+-CONFIGURING DYNAMIC METADATA could get a little tricky
+- its useful for when metadatas depends on dynamically generated content eg current route parameters
+or some info from an api or even metadata defined in parent segments/path/route
+- we setup dynamic metadata by defining and exporting a generateMetadata function 
+in page.tsx or layout.tsx file eg productDetails file/page where all productID are generated/extracted
+from the route params
+
+- something to note is that you cant both metadata object and the generateMetaData function in the same
+route segment/page. its one or the other
+
+- a crucial limitation with working with metadata in nextjs is that it doesnt work in client components
+- a workaround would be to create a server-component and import the client component into the server
+and export metadata from there. its a recommended way to handle metadata in client components
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
