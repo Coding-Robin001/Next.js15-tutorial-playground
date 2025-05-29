@@ -343,6 +343,19 @@ route segment/page. its one or the other
 and export metadata from there. its a recommended way to handle metadata in client components
 
 
+DAY16
+- TITLE METADATA IN NEXTJS
+- its main use is to define document title
+- could be string or object
+- nextjs gives us option to define the title metadata as objects for better/more control. 
+3 powerful options
+
+1. setting default fallback value incase the metadata/title of a page isnt set
+2. using the template option/field to add consistent/fixed prefixes/suffixes to page title(applies to
+child routes). useful when you want consistent title formatting accross your page assuming its a
+multi-page app.
+3. using the abolute property in a child route to override any template set in the layout or by the 
+parent route/segment
 
 
 
