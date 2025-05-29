@@ -48,4 +48,19 @@ body {
 .prod-layout{
   display: flex;
 }
+
+.header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.header a{
+  color: #e9c80d;
+}
+
+.header li{
+  list-style: none;
+}
   

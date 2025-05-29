@@ -358,8 +358,20 @@ multi-page app.
 parent route/segment
 
 
+DAY17
+LINK COMPONENT IN NEXTJS
+- navigating through page with the link component
+- dynamic routing within our nextjs app
+- 'replace' property when placed on a link element as an attribute, replaces current history.skips it.
+takes you back to prev before current prev.
 
 
+
+DAY18
+ACTIVE LINKS IN NEXTJS
+- sstyling active links
+- nextJs gives us a usePathName hook to extract the current path and we can use it to programmtically
+add dynamic styling to a link element 
 
 
 

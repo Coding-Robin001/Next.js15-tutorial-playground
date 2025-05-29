@@ -1,14 +1,16 @@
 import React from 'react'
+import Link from 'next/link'
 
 const ProductPage = () => {
     return (
         <div className='main2 flex h-50 justify-center align-center'>
             <h2 className='text-[2rem]'>Product page</h2>
             <ul>
-                <li className='text-[1.3rem]'>Product 1</li>
-                <li className='text-[1.3rem]'>Product 2</li>
-                <li className='text-[1.3rem]'>Product 3</li>
+                <Link href="/product/1"><li className='text-[1.3rem]'>Product 1</li></Link>
+                <Link href="/product/2"><li className='text-[1.3rem]'>Product 2</li></Link>
+                <Link href="/product/3"><li className='text-[1.3rem]'>Product 3</li></Link>
             </ul>
+            <Link href="/"><p>HOME</p></Link>
         </div>
     )
 }
