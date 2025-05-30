@@ -44,11 +44,15 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <header className="header gap-7 p-[1.4rem] bg-[blue] text-[white] text-[1.5rem] text-center">
           {
-            navLinks.map((element) => {
-              const activeLink = 
-              pathname == element.href || (pathname.startsWith(element.href) && element.href != "/")
+            navLinks.map((element, index) => {
+              const activeLink =
+                pathname == element.href || (pathname.startsWith(element.href) && element.href != "/")
               return (
-                <Link className={activeLink ? "font-bold" : ""} href={element.href}>
+                <Link
+                  key={index}
+                  className={activeLink ? "font-bold" : ""}
+                  href={element.href}
+                >
                   <li>{element.name}</li>
                 </Link>
               )
