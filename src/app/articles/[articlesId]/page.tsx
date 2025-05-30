@@ -1,13 +1,16 @@
+"use client"
+
 import Link from 'next/link'
 import React from 'react'
+import { use } from 'react'
 
-const NewsArticle = async ({ params, searchParams }: {
+const NewsArticle = ({ params, searchParams }: {
     params: Promise<{ articlesId: string }>
     searchParams: Promise<{ lang?: "en" | "fr" | "es" }>
 }) => {
 
-    const { articlesId } = await params
-    const { lang = "en" } = await searchParams
+    const { articlesId } =  use(params)
+    const { lang = "en" } = use(searchParams)
 
     return (
         <div className='h-[60vh]'>
