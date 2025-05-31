@@ -4,7 +4,7 @@ const ProductDetailsLayout = ({ children }: {
     children: React.ReactNode
 }) => {
     return (
-        <div className='prod-layout bg-[chocolate] P-[2rem]'>
+        <div className='prod-layout bg-[#9e9e9e] P-[2rem]'>
             <div className='w-[200px] bg-[#fff] text-[1.2rem] flex justify-center items-center'>
                 NESTED LAYOUT
             </div>

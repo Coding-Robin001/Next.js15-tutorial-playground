@@ -1,5 +1,6 @@
 import React from 'react'
 import { notFound } from 'next/navigation';
+import { error } from 'console';
 
 const ProductReview = async ({ params }: {
     params: Promise<{ productId: string, reviewId: string }>
@@ -10,6 +11,17 @@ const ProductReview = async ({ params }: {
     if (parseInt(reviewId) > 1000) {
         notFound()
     }
+
+    const getRandomInt = (count: number) => {
+        return Math.floor(Math.random() * count)
+    }
+
+    const random = getRandomInt(2)
+
+    if (random == 1) {
+        throw new Error("error loading review!")
+    }
+
     return (
         <div className='main flex h-100 justify-center align-center'>
             <h2 className='text-[1.5rem]'>Product review page, another dynamic subroute nested within the product Details subroute</h2>
@@ -22,3 +34,18 @@ const ProductReview = async ({ params }: {
 }
 
 export default ProductReview
+
+
+
+
+<Layout>
+    <Template>
+        <ErrorBoundary fallback={<Error />}>
+            <Suspense fallback={<Loading />}>
+                <ErrorBoundary fallback={<NotFound />}>
+                    <Page/>
+                </ErrorBoundary>
+            </Suspense>
+        </ErrorBoundary>
+    </Template>
+</Layout>
