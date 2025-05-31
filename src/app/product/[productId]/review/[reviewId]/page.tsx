@@ -1,6 +1,5 @@
 import React from 'react'
 import { notFound } from 'next/navigation';
-import { error } from 'console';
 
 const ProductReview = async ({ params }: {
     params: Promise<{ productId: string, reviewId: string }>
@@ -38,14 +37,3 @@ export default ProductReview
 
 
 
-<Layout>
-    <Template>
-        <ErrorBoundary fallback={<Error />}>
-            <Suspense fallback={<Loading />}>
-                <ErrorBoundary fallback={<NotFound />}>
-                    <Page/>
-                </ErrorBoundary>
-            </Suspense>
-        </ErrorBoundary>
-    </Template>
-</Layout>
