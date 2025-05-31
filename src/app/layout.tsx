@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const [value, setValue] = useState("")
 
   const navLinks = [
     { name: "register", href: "/register" },
@@ -59,6 +62,8 @@ export default function RootLayout({
             })
           }
         </header>
+        <input type="text" value={value} onChange={e => setValue(e.target.value)} />
+        <span>textValue: {value}</span>
         {children}
         <footer className="p-[1.4rem] bg-[green] text-[white] text-[1.7rem] text-center">
           footer component

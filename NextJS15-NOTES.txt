@@ -375,6 +375,42 @@ add dynamic styling to a link element
 
 
 
+DAY 19
+PARAMS AND SEARCHPARAMS IN NEXTJS
+
+-in any given url, PARAMS is a promise that resolves into a dynamic route paramters(eg ID)
+
+- we define a dynamic(or not) params in our code first, usually to represent some ID, which then get 
+used to construct a route url. from that routeURL we can then extract that dynamicParam(eg ID) in our
+code, its usually a promise. and use it programmtically for our next step or another step.
+
+
+- SEARCHPARAMS on the other hand is similar to PARAMS its a promise that resolves into an object that
+contains query paramters(eg sorting, filter).
+- difference between dynamic route parameters(IDs) and query params (filter,sorting)?
+- whatever comes after ? in a URL is a query params not dynamicRoute params. 
+- we can extract/access both params and searchParams in code in nextjs both in server and client 
+components.
+- note that client components in nextjs do not support/allow async await
+- so to extract params and queryParams in client component we use a "use" hook from react.and wrap 
+params and queryParams around it.
+- another important note is that page.tsx components/routes has access to both params from dynamic
+routes like ID but also queryParams but layout.tsx components only gets access to params. not queryParams
+
+
+- does hooks genrally only work in client components in nextjs
+
+
+
+DAY20
+-navigating programatically in nextjs app using the useRouter hook or redirect from "next/navigation'
+- as its a hook ,it can only be used in a client component
+- so navigation can only be done from a client component?
+- you can navigate forward or back or replace current route. router gives us flexibility
+- for server components you can navigate programatically within the app using the 'redirect'hook? from
+next/navigation. you call it and pass the destination route as argument.
+
+
 
 
 
