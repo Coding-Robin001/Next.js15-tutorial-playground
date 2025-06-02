@@ -14,6 +14,8 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
 
 }
 
+
+
 const ProductDetails = async ({ params, }: Props) => {
 
     const prodId = (await params).productId;

@@ -412,15 +412,105 @@ next/navigation. you call it and pass the destination route as argument.
 
 
 
+day21
+TEMPLATE IN NEXTJS
+- layouts only mount new page content while keeping common content intact
+- what is mounting and unmounting in reacct? what do i need to understand about this concept/topic?
+
+- layouts do not remount shared components which leads to better performance. any components in a layout.tsx
+file remains static and only children pages gets remounted and thats where template files comes in.
+- with templates shared components gets remounted. a new instance of the shared components gets created.
+-templates are similar to layouts.alternative to layouts actually.differnce is that whenever user navigates
+between routes any shared components are remounted too.
+- when you use templates
+1. dom elements are recreated and re-rendered
+2. state is cleared
+
+- you use the template.tsx or template.js nextjs naming convention instead of layout.tsx/layout.js. all other
+things are same as its similar to a typical layout file. they both accept children props
+- you can also nest layout and template files within each other
+
+
+-special files with special naming conventions in nextjs includes
+1. page.tsx
+2. layout.tsx
+3. not-found.tsx
+4. template.tsx
+5. loading.tsx
+6. error.tsx
+
+this is all the special files in the app router. 6.
+
+their hierachy->
+
+<Layout>
+    <Template>
+        <ErrorBoundary fallback={<Error />}>
+            <Suspense fallback={<Loading />}>
+                <ErrorBoundary fallback={<NotFound />}>
+                    <Page/>
+                </ErrorBoundary>
+            </Suspense>
+        </ErrorBoundary>
+    </Template>
+</Layout>
+
+
+
+
+DAY 22
+LOADING UI IN NEXTJS
+- has a special naming convention loading.tsx(any file created as 'loading.tsx' will be treated as a 
+loading UI in nextjs
+- its used to create loading states for users to see while waiting for content to load in a specific 
+route segment
+- to create a loading state, just add loading.tsx in the right folder/route
+- loading.tsx file automatically wraps the page.tsx and its nested children in a react-suspense-boundary
+- benefits of using a loading state/ui
+1.to give users feedback when they navigate somewhere new
+2. makes app feels snappy and responive to user
+3. nextjs keeps shared layouts interactive evne while page loads(nav/side bars are still clickable) which
+ultimately improves user experience
+- download a loading spinner. about 2 or 3. render them and screenshot for content/posting.keep it casual
+and a step fun.
+
+
+
+DAY 23
+ERROR HANDLING IN NEXTJS(with the error.tsx file)
+- when an error occurs in our nextjs app and its 'unhandled' its crashes our entire app and we obviosuly
+dont want that as its not a good user experience. managable in dev mode but unacceptable in production
+- its worse coe its in a deeply nested page/component, so the entire app breaks. not good.
+- good practice to handle erros gracefully and contain the errors within the affected part/page/components
+and keep the rest of the app and current state running and unaffected. best for UX. which is where error.tsx
+comes in handy
+- also has a special naming convention error.tsx(any file created as 'error.tsx' will be treated as a 
+error-boundary file within that folder/route.
+- THE ERROR.TSX FILE acts as an error-bondary around the page.tsx file in the folder/route basically catches
+and contains any error within the page.tsx
+- error.tsx files must be client components
+- most important thing is that it works as an error boundary i.e app wont crash, it just display an error
+messge for the particular page that throws an error and keeps working.cool.
+- error.tsx is very powerful.
+1. wraps routes segments and their nested children in react error boundary
+2. you can create custom error UIs for specific segments using the file-system hierechy
+3. isolates error to only affected segments/routes/pages of your app while ensuring your app continues
+to function normally
+4. allows page to recover from errors gracefully without requiring full app reload
 
 
 
 
 
-
-
-
-
- 
+DAY24
+-ERROR HANDLING PART 2(RECOVERING FROM TEMPORARY/SIMPLE ERRORS BY RETRYING)
+- using a reset function  
+- we add a button in our error.tsx to trigger a reset(re-rendering) of the component in page.tsx
+- note that reset hooked to a button will keep trying to rerender the component in client-side not server
+side
+- difference between server-side and client-side rendering of components???????????
+- difference between useRouter from next/router and next/navigation?????????????
+- what does 'startTransition' hook do? ensures the 
+- to attempt server-side recovery, we use 'startTransition' and 'useRouter' hooks from nextjs
 
 
