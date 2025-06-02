@@ -91,3 +91,8 @@ button{
   border-radius: 10px;
   cursor: pointer;
 }
+
+.global-error-wrapper{
+  display: flex;
+  flex-direction: column;
+}

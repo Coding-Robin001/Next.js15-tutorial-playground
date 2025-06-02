@@ -6,6 +6,7 @@ import "./globals.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { ErrorWrapper } from "./error-wrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -64,7 +65,9 @@ export default function RootLayout({
         </header>
         <input type="text" value={value} onChange={e => setValue(e.target.value)} />
         {/* <span>textValue: {value}</span> */}
-        {children}
+        <ErrorWrapper>
+          {children}
+        </ErrorWrapper>
         <footer className="p-[1.4rem] bg-[green] text-[white] text-[1.7rem] text-center">
           footer component
         </footer>
