@@ -514,3 +514,64 @@ side
 - to attempt server-side recovery, we use 'startTransition' and 'useRouter' hooks from nextjs
 
 
+
+DAY25
+- ERROR HANDLING IN NESTED ROUTES
+- folder structure affects the behavior of the error.tsx file
+- errors always bubble up to find the closest parent error boundary. i.e error.tsx files handle errors not
+just in the folder/directory its created in but also for all the folders/routes nested inside/below it too.
+- by strategically placing error.tsx files in different levels in our route folders, we control how
+detailed our error-handling gets
+- again, error will keep bubling up till it finds an error boundary. starting from nested folders to parent
+and so on. if no boundary,it crashes whole app
+- the postion of the error.tsx file makes a huge difference on how error gets handled,on what part of the
+UI gets affected when things go wrong
+
+
+DAY26
+- ERROR HANDLING IN LAYOUTS
+- error boundaries(error.tsx) doesnt catch errors thrown in layout.tsx if they are on the same hierachy-level
+- and the reason i because of how the component hierachy works, layouts components sits above the error-boundary
+components in the component(rendering?) tree
+-senible solution is to always have an error.tsx file in the uppermost route level/foler which automatically
+ catch all errors in nested folder/route including the layout.tsx files within it
+
+
+- DAY27
+-ERROR HANDLING ON A GLOBAL LEVEL
+- important question: if error.tsx dont catch errors in layouts on the same path level then how do we
+ handle errors in the root layout.tsx of our app router directory? it doesnt have a parent segement/folder
+that we can place an error-boundary to catch it, so what do we do?
+- for this specific scenario, nextjs gives us a special file called "global-error.tsx" file that goes in the
+root app directory. its the last line of defence when something goes wrong in your app 
+- error.tsx file must be a client components
+- the global-error.tsx wraps entire app in an error boundary, if anything goes wrong in any part of the
+app on the same route level or even nested, it catches. assuming the nested folders do not hav their own
+custom error.tsx file, of course
+-and thats the global-error.tsx file in action how it differs from the regular error.tsx file
+- its always advisable to make the global-error.tsx file as simple as possible. just html and css as there
+is no more error-catching after that and if something goes wrong in this file, app crashes.which is obvio
+not good!
+- yep i think ive covered all key-concpet in error handling in nextjs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
