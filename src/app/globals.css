@@ -83,7 +83,7 @@ body {
   color: #7c0fe2;
 }
 
-button{
+button {
   background-color: red;
   color: #fff;
   padding: 0.5rem;
@@ -92,7 +92,17 @@ button{
   cursor: pointer;
 }
 
-.global-error-wrapper{
+.global-error-wrapper {
   display: flex;
   flex-direction: column;
+}
+
+.card-el {
+  padding: 100px;
+  margin: 15px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -65,9 +65,9 @@ export default function RootLayout({
         </header>
         <input type="text" value={value} onChange={e => setValue(e.target.value)} />
         {/* <span>textValue: {value}</span> */}
-        <ErrorWrapper>
-          {children}
-        </ErrorWrapper>
+        {/* <ErrorWrapper> */}
+        {children}
+        {/* </ErrorWrapper> */}
         <footer className="p-[1.4rem] bg-[green] text-[white] text-[1.7rem] text-center">
           footer component
         </footer>
