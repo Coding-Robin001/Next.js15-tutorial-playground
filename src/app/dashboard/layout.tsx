@@ -5,13 +5,17 @@ const layout = ({
     notifications,
     revenue,
     user,
+    login,
 }: {
     children: React.ReactNode
     notifications: React.ReactNode
     revenue: React.ReactNode
     user: React.ReactNode
+    login: React.ReactNode
 }) => {
-    return (
+    const isUserLoggedIn = false
+
+    return isUserLoggedIn ? (
         <div className='p-3'>
             {children}
             <div className='flex '>
@@ -25,7 +29,12 @@ const layout = ({
             </div>
 
         </div>
-    )
+    ) :
+        (
+            <div>
+                {login}
+            </div>
+        )
 }
 
 export default layout
