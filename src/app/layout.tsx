@@ -45,7 +45,8 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
+      <body>
         <header className="header gap-7 p-[1.4rem] bg-[blue] text-[white] text-[1.5rem] text-center">
           {
             navLinks.map((element, index) => {
