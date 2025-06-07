@@ -556,20 +556,70 @@ not good!
 
 
 
+DAY28
+ADVANCED ROUTING CONCEPT IN NEXTJS
+1. PARALLEL ROUTES
+- parallel route is an advanced routing mechanism feature(in next15?) that lets us render multiple pages
+simultaneously within the same layout
+- exmaple is building a complex dashboard where we need to display 3 seperate components(user analytics,
+revenue metrics, notifications)all at once within a single dashboard route/page. this is a fairly common
+case in web dev.
+- the typical/traditional way would be creating seperate components for each parts and organizing them
+inside the layout.tsx file inside a dashboard folder within the app folder. and this works parfectly
+- parallel routes achieve the same result but with some added benefits
+- parallel routes in nextjs are defined using a feature known as slots
+- slots help organize content in a modular way
+- to create a slot we use the @folder naming convention
+- each defined slot automatically becomes a prop in its corresponding layout.tsx
+-** instead of creating seperate components for each parts of our dashboard, we create 'slots'
+- NO IMPORTS are needed in the layout.tsx file when you create slots with @ naming convention
+- slots are not route segments and therefore do not affect our url structures.
+- some use cases in which slots are perfect for includes dashboards, multi-panel layouts, split-view interfaces,
+complex admin interfaces and basically any UI where seperate UIs aggregate in a single layout and operate 
+independently
+- benefits of building complex UIs with parallel routes includes(what makes them so special)
+1.perfect for spliting a layout into manageable slots(especially in team settings just like regualr components)
+2. independently route handling(number 1 main superpower of parallel routes)
+3. sub-navigation(number 2 key feature of parallel routes)
+
+- independent route handling means each slots gets the same feature a route gets eg error.tsx files for error-hand;ing
+withon its own page/slot, loading.tsx too. its a granular control thats important cos usually in a dashboard
+different sections load in their own different times depending on the api and encounter different/unique errors
+all of those things can be managed within its own components/slots.
+- user can also subnavigate effortlessly within a parallel route. each slot pages can essentially function
+like a mini-app with its own navigation and state management without affecting other parts of the app/dashboard
+page/layout. no unneccasry reloads or layout shifts
+-******SIMULATE HOW THE 3/4? COMPONENTS ARE MOVING/OPERATING/FUNCTIONING SEPERATELY BESIDE EACH OTHER
+MAKE ONE COMPONENT SHOW CONTENT, ANOTHER LOADING SPINNER, ANOTHER ERROR. TO REALLY SHOW CLEARLY THE ADVANTAGE
+OF PARALLEL ROUTES AND HOW THEY HELP KEEP EACH COMPONENTS CONTAINED WITHIN ITSELF.
+
+
+
+DAY29
+unmatched routes in parallel routes due to sub-navigation and how default.tsx pages help solve this problem 
+in nextjs
+- WHEN DISCUSSING SUBNAVIGATION IN PARALEL ROUTES, WE NEED TO UNDERSTAND AN IMPORTANT CONCEPT CALLED 'UNMATCHED
+ROUTES'
+- Wwhen you usubnavigate within a slot, only changed components gets re-rendered, all other components/slot pages
+in the dashboard-layout remain unchanged. no unneccesary page reloads, or layout shifting. very smooth user
+experience
+- unmatched routes happens in a slot component when you subnavigate to another link, all other slot components
+within the page that do not care about the sub-nav becomes unmatched-routes. so nextjs gives us a convenient
+way to handle these. by defining a fallback routes with a default.tsx pages. so that when we sub-navigate, the
+other slots that do not care can have a fallback value/route (usually containing the exact content of original
+route/slot/component).its intuitive.
+- so to avoid getting a 404 error from an unmatched route, we use fallback/default routes
+- when we reload fromvthe sub-navigated route, the defaults content/components kick it.
 
 
 
 
 
-
-
-
-
-
-
-
-
-
+DAY30
+- CONDITIONAL ROUTES(PARALLEL ROUTES ENABLE AND MAKES IT POSSIBLE)
+- just like with regualr components, we can also conditionally render difference routes(slots) with an extra
+benefit of being well structured under the same url. also with its own error handling and its own loading states
+and also subnavigation page (signup or forgotPassword routes) 
 
 
 
