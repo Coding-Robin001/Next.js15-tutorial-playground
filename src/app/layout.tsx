@@ -47,7 +47,7 @@ export default function RootLayout({
     <html lang="en">
       {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
       <body>
-        <header className="header gap-7 p-[1.4rem] bg-[blue] text-[white] text-[1.5rem] text-center">
+        {/* <header className="header gap-7 p-[1.4rem] bg-[blue] text-[white] text-[1.5rem] text-center">
           {
             navLinks.map((element, index) => {
               const activeLink =
@@ -63,15 +63,15 @@ export default function RootLayout({
               )
             })
           }
-        </header>
-        <input type="text" value={value} onChange={e => setValue(e.target.value)} />
+        </header> */}
+        {/* <input type="text" value={value} onChange={e => setValue(e.target.value)} /> */}
         {/* <span>textValue: {value}</span> */}
         {/* <ErrorWrapper> */}
         {children}
         {/* </ErrorWrapper> */}
-        <footer className="p-[1.4rem] bg-[green] text-[white] text-[1.7rem] text-center">
+        {/* <footer className="p-[1.4rem] bg-[green] text-[white] text-[1.7rem] text-center">
           footer component
-        </footer>
+        </footer> */}
       </body>
     </html>
   );
