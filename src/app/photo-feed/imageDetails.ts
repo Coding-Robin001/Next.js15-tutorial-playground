@@ -8,12 +8,13 @@ import animalPhoto6 from "./photos/animalPhoto6.jpg"
 import animalPhoto7 from "./photos/animalPhoto7.jpg"
 import animalPhoto8 from "./photos/animalPhoto8.jpg"
 import animalPhoto9 from "./photos/animalPhoto9.jpg"
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 
-type AnimalImage = {
+export type AnimalImage = {
     id: string;
     name: string;
-    src: StaticImageData;
+    src: string | StaticImport ;
     photographer: string;
     randomFact: string;
 };

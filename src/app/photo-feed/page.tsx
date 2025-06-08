@@ -19,7 +19,7 @@ const PhotoFeed = () => {
                   borderRadius: "10px"
                 }}
               >
-                <Link href={`/photofeed/${id}`}>
+                <Link href={`/photo-feed/${id}`}>
                   <Image
                     src={src}
                     alt={name}
