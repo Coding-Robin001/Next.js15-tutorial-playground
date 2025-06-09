@@ -14,11 +14,7 @@ const SinglePhotoPage = async ({ params }: { params: Promise<{ photoId: string }
   return (
     <div className='w-full flex justify-center items-center gap-4 h-[500px]'>
 
-      <div className='w-[600px] h-[400px]'
-        style={{
-          borderRadius: "10px",
-          border:"1px solid red"
-        }}>
+      <div className='w-[600px] h-[400px]'>
         <Image
           className='object-contain w-[600px] h-[400px]'
           src={currentPhoto?.src}

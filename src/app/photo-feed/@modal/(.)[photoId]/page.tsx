@@ -17,20 +17,19 @@ const PhotoFeedModal = ({
   return (
     <div className='modal-container'>
       <div className='modal-wrapper'>
-        <div className='w-[600px] h-[400px]'
+        <div className=' h-[300px] flex items-center justify-center'
           style={{
-            borderRadius: "10px",
-            border: "1px solid red"
+            borderRadius: "3px",
+            border:"1px solid #353232"
           }}>
           <Image
-            className='object-contain w-[600px] h-[400px]'
+            className='object-contain w-[450px] h-[300px]'
             src={currentPhoto?.src}
             alt={currentPhoto?.name}
           />
         </div>
-        <div className='w-[600px] '>
+        <div className='w-[500px] '>
           <h2 className='text-[#fff] text-[1.9rem]'>{currentPhoto?.name.toUpperCase()}</h2>
-          <h3 className='text-[#fff] my-[1rem] '>PHOTO BY: <span className=' text-[chocolate]'>{currentPhoto?.photographer}</span></h3>
           <p className='text-[#fff] '><span className='text-[chocolate]'>FUNFACT:</span> {currentPhoto?.randomFact}</p>
         </div>
       </div>
