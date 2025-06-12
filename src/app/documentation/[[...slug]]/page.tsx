@@ -1,10 +1,10 @@
 import React from 'react'
 
 const Documentation = async ({ params }: {
-    params: Promise<{ slug: string[] }>
+    params: { slug: string[] }
 }) => {
 
-    const { slug } = (await params)
+    const { slug } = ( params)
 
     if (slug?.length == 2) {
         return (
@@ -29,8 +29,8 @@ const Documentation = async ({ params }: {
     }
 
     return (
-        <div>
-            <h2>welcome to Docs home Page</h2>
+        <div className='flex justify-center align-center mt-[16rem]'>
+            <h2 className='text-[3rem]'>Welcome to Docs home Page</h2>
         </div>
     )
 
