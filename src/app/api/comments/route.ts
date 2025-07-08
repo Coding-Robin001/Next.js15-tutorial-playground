@@ -10,6 +10,7 @@ export async function POST(request: Request) {
         id: comments.length + 1,
         text: comment.text
     }
+    
     comments.push(newComment)
     return new Response(JSON.stringify(newComment), {
         headers: { "Content-type": "application/json" },

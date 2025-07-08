@@ -3,22 +3,23 @@ import animalImages from '../imageDetails'
 import Image from 'next/image'
 import { AnimalImage } from '../imageDetails'
 
-const SinglePhotoPage = async ({ params }: { params: Promise<{ photoId: string }> }) => {
+const SinglePhotoPage = async ({ params }: { params: { photoId: string } }) => {
 
-  const { photoId } = await params
+  const { photoId } = params
 
   const currentPhoto: AnimalImage = animalImages.find(p => p.id == photoId)!
   console.log(currentPhoto);
 
 
   return (
-    <div className='w-full flex justify-center items-center gap-4 h-[500px]'>
+    <div className='w-full flex justify-center items-center gap-4 h-[100%]'>
 
       <div className='w-[600px] h-[400px]'>
         <Image
           className='object-contain w-[600px] h-[400px]'
           src={currentPhoto?.src}
           alt={currentPhoto?.name}
+          
         />
       </div>
       <div className='w-[600px] '>

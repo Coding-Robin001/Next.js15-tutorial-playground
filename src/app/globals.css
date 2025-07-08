@@ -74,7 +74,7 @@ body {
 }
 
 .header a {
-  color: #e9c80d;
+  color: #702f01;
 }
 
 .header li {
@@ -92,10 +92,12 @@ body {
 button {
   background-color: red;
   color: #fff;
-  padding: 0.5rem;
-  font-size: 1.5rem;
-  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
   cursor: pointer;
+  /* width: 100px; */
 }
 
 .global-error-wrapper {
@@ -104,13 +106,20 @@ button {
 }
 
 .card-el {
+  height: 80vh;
+  width: 900px;
   padding: 100px;
   margin: 15px;
   border: 1px solid #ddd;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+}
+
+.border{
+  color: burlywood;
+  border: 1px solid red;
 }
 
 
@@ -142,3 +151,42 @@ button {
   -moz-box-shadow: 9px 10px 7px -4px rgba(0, 0, 0, 0.95);
 }
 
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  --b: 8px; 
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 1px;
+  background: conic-gradient(#0000 10%,#a04402) content-box;
+  -webkit-mask:
+    repeating-conic-gradient(#0000 0deg,#000 1deg 20deg,#0000 21deg 36deg),
+    radial-gradient(farthest-side,#0000 calc(100% - var(--b) - 1px),#000 calc(100% - var(--b)));
+  -webkit-mask-composite: destination-in;
+          mask-composite: intersect;
+  animation:l4 1s infinite steps(10);
+}
+@keyframes l4 {to{transform: rotate(1turn)}}
+
+/* HTML: <div class="loader"></div> */
+.loader2 {
+  width: calc(80px / cos(45deg));
+  height: 14px;
+  --c: #000 0 15px,#0000 0 20px;
+  background: 
+    repeating-linear-gradient(135deg,var(--c)) left top,
+    repeating-linear-gradient( 45deg,var(--c)) left bottom;
+  background-size:  200% 50%;
+  background-repeat: no-repeat;
+  animation: l4 2s infinite linear;
+}
+@keyframes l4 {
+    100% {background-position:top right,bottom right}
+}
+
+/* .loader-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */

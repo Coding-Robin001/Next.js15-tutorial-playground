@@ -12,7 +12,7 @@ const Blog = async () => {
   await new Promise((resolve) => {
     setTimeout(() => {
       resolve("intentional delay to simulate loading UI!")
-    }, 2000);
+    }, 5000);
   })
   
   return (

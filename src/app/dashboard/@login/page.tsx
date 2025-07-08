@@ -4,8 +4,10 @@ import React from 'react'
 const Login = () => {
   return (
     <Card>
+      <div className='h-full flex justify-center items-center'>
         Please Login to Proceed
-    </Card>      
+      </div>
+    </Card>
   )
 }
 

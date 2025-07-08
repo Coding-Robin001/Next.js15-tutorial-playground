@@ -36,9 +36,11 @@ export default function RootLayout({
   const [value, setValue] = useState("")
 
   const navLinks = [
-    { name: "register", href: "/register" },
-    { name: "login", href: "/login" },
-    { name: "forgotPassword", href: "/forgotPassword" },
+    // { name: "register", href: "/register" },
+    // { name: "login", href: "/login" },
+    // { name: "forgotPassword", href: "/forgotPassword" },
+    { name: "home", href: "/" },
+    { name: "dashboard", href: "/dashboard" },
   ]
 
   const pathname = usePathname()
@@ -47,7 +49,7 @@ export default function RootLayout({
     <html lang="en">
       {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
       <body>
-        {/* <header className="header gap-7 p-[1.4rem] bg-[blue] text-[white] text-[1.5rem] text-center">
+        {/* <header className="header gap-7 p-[1.4rem] bg-[black] text-[white] text-[1.5rem] text-center">
           {
             navLinks.map((element, index) => {
               const activeLink =
@@ -69,8 +71,8 @@ export default function RootLayout({
         {/* <ErrorWrapper> */}
         {children}
         {/* </ErrorWrapper> */}
-        {/* <footer className="p-[1.4rem] bg-[green] text-[white] text-[1.7rem] text-center">
-          footer component
+        {/* <footer className="p-[1.4rem] bg-[black] text-[white] text-[1rem] text-center">
+          footer
         </footer> */}
       </body>
     </html>
