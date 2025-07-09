@@ -142,10 +142,10 @@ button {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 25px;
   padding: 2rem;
   border-radius: 7px;
-  border: 1px solid gray;
+  border: 3px solid #fff;
   box-shadow: 9px 10px 7px -4px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 9px 10px 7px -4px rgba(0, 0, 0, 0.95);
   -moz-box-shadow: 9px 10px 7px -4px rgba(0, 0, 0, 0.95);
