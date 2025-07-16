@@ -1,10 +1,20 @@
 import { PrismaClient } from '@prisma/client'
 import { NextRequest } from 'next/server'
+import { headers } from 'next/headers'
 
 const prisma = new PrismaClient()
 
 // GET all animals
 export async function GET(req: NextRequest) {
+
+  const headersList = await headers()
+  console.log(headersList.get("Authorization"))
+
+
+  // const requestHeaders = new Headers(req.headers)
+  // console.log(requestHeaders.get("Authorization"))
+
+
   const searchParams = req.nextUrl.searchParams
   const query = searchParams.get("query")
   const limitParam = searchParams.get("limit")
