@@ -1,17 +1,35 @@
 import { PrismaClient } from '@prisma/client'
+import { NextRequest } from 'next/server'
 
 const prisma = new PrismaClient()
 
 // GET all animals
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const searchParams = req.nextUrl.searchParams
+  const query = searchParams.get("query")
+  const limitParam = searchParams.get("limit")
+
+  // Parse the limit safely (default to 10 if not provided or invalid)
+  const limit = limitParam && !isNaN(Number(limitParam)) ? parseInt(limitParam) : 2
+
   try {
-    const animals = await prisma.animal.findMany()
+    const animals = await prisma.animal.findMany({
+      where: query
+        ? {
+          name: {
+            contains: query.toLowerCase()
+          },
+        }
+        : undefined,
+      take: limit
+    })
     return Response.json(animals)
   } catch (error) {
     console.error(error)
     return Response.json({ error: 'Failed to fetch animals' }, { status: 500 })
   }
 }
+
 
 
 export async function POST(req: Request) {
