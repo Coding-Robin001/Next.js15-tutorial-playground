@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { NextRequest } from 'next/server'
-import { headers } from 'next/headers'
+import { headers, cookies } from 'next/headers'
 
 const prisma = new PrismaClient()
 
@@ -10,14 +10,16 @@ export async function GET(req: NextRequest) {
   const headersList = await headers()
   console.log(headersList.get("Authorization"))
 
-
   // const requestHeaders = new Headers(req.headers)
   // console.log(requestHeaders.get("Authorization"))
-
 
   const searchParams = req.nextUrl.searchParams
   const query = searchParams.get("query")
   const limitParam = searchParams.get("limit")
+
+  const cookieStore = await cookies()
+  console.log(cookieStore.get("resultsPerPage")?.value)
+  console.log(cookieStore.get("theme")?.value)
 
   // Parse the limit safely (default to 10 if not provided or invalid)
   const limit = limitParam && !isNaN(Number(limitParam)) ? parseInt(limitParam) : 2
@@ -33,7 +35,17 @@ export async function GET(req: NextRequest) {
         : undefined,
       take: limit
     })
-    return Response.json(animals)
+    const responseBody = JSON.stringify(animals)
+    const headers = new Headers()
+    headers.set("Content-Type", "application/json")
+    headers.append("Set-Cookie", "resultsPerPage=20; Path=/; HttpOnly")
+    headers.append("Set-Cookie", "theme=dark; Path=/; Max-Age=604800; HttpOnly; Secure; SameSite=Strict")
+
+    return new Response(responseBody, {
+      status: 200,
+      headers: headers
+    })
+
   } catch (error) {
     console.error(error)
     return Response.json({ error: 'Failed to fetch animals' }, { status: 500 })
