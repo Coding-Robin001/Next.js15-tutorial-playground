@@ -2,6 +2,8 @@ import { PrismaClient } from '@prisma/client'
 import { NextRequest } from 'next/server'
 import { headers, cookies } from 'next/headers'
 
+export const dynamic = 'force-dynamic'
+
 const prisma = new PrismaClient()
 
 // GET all animals
@@ -22,7 +24,7 @@ export async function GET(req: NextRequest) {
   console.log(cookieStore.get("theme")?.value)
 
   // Parse the limit safely (default to 10 if not provided or invalid)
-  const limit = limitParam && !isNaN(Number(limitParam)) ? parseInt(limitParam) : 2
+  const limit = limitParam && !isNaN(Number(limitParam)) ? parseInt(limitParam) : 3
 
   try {
     const animals = await prisma.animal.findMany({
@@ -38,8 +40,14 @@ export async function GET(req: NextRequest) {
     const responseBody = JSON.stringify(animals)
     const headers = new Headers()
     headers.set("Content-Type", "application/json")
+
+    // cookie logic
     headers.append("Set-Cookie", "resultsPerPage=20; Path=/; HttpOnly")
     headers.append("Set-Cookie", "theme=dark; Path=/; Max-Age=604800; HttpOnly; Secure; SameSite=Strict")
+
+    // caching logic for browsers/CDN
+    headers.set("Cache-Control", "public, max-age=300") // 5 min
+
 
     return new Response(responseBody, {
       status: 200,
