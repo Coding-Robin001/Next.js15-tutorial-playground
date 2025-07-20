@@ -2,7 +2,8 @@ import { PrismaClient } from '@prisma/client'
 import { NextRequest } from 'next/server'
 import { headers, cookies } from 'next/headers'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
+// export const dynamic = 'force-dynamic'
 
 const prisma = new PrismaClient()
 
