@@ -5,7 +5,7 @@ import React from 'react'
 import { redirect, useRouter } from 'next/navigation'
 
 const PlaceOrder = () => {
-    const router = useRouter()
+    // const router = useRouter()
 
     const placeOrderHandler = () => {
         alert("order placed!")

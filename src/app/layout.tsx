@@ -1,8 +1,9 @@
-"use client"
+// "use client"
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-providers";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -47,34 +48,36 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
-      <body>
-        {/* <header className="header gap-7 p-[1.4rem] bg-[black] text-[white] text-[1.5rem] text-center">
-          {
-            navLinks.map((element, index) => {
-              const activeLink =
-                pathname == element.href || (pathname.startsWith(element.href) && element.href != "/")
-              return (
-                <Link
-                  key={index}
-                  className={activeLink ? "font-bold" : ""}
-                  href={element.href}
-                >
-                  <li>{element.name}</li>
-                </Link>
-              )
-            })
-          }
-        </header> */}
-        {/* <input type="text" value={value} onChange={e => setValue(e.target.value)} /> */}
-        {/* <span>textValue: {value}</span> */}
-        {/* <ErrorWrapper> */}
-        {children}
-        {/* </ErrorWrapper> */}
-        {/* <footer className="p-[1.4rem] bg-[black] text-[white] text-[1rem] text-center">
-          footer
-        </footer> */}
-      </body>
+      <ThemeProvider>
+
+        {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
+        <body >
+          <header className="header gap-7 p-[1.4rem] bg-[black] text-[white] text-[1.5rem] text-center">
+            {
+              navLinks.map((element, index) => {
+                const activeLink =
+                  pathname == element.href || (pathname.startsWith(element.href) && element.href != "/")
+                return (
+                  <Link
+                    key={index}
+                    className={activeLink ? "font-bold" : ""}
+                    href={element.href}
+                  >
+                    <li>{element.name}</li>
+                  </Link>
+                )
+              })
+            }
+          </header>
+          <ErrorWrapper>
+            {children}
+          </ErrorWrapper>
+          <footer className="p-[1.4rem] bg-[black] text-[white] text-[1rem] text-center">
+            footer
+          </footer>
+        </body>
+      </ThemeProvider>
+
     </html>
   );
 }

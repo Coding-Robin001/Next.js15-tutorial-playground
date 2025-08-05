@@ -18,6 +18,7 @@ export default function Home() {
         <div className="flex gap-5">
           <Link href="/articles/oil-prices-increase?lang=fr">Read blog in French</Link>
           <Link href="/articles/oil-prices-increase?lang=en">Read blog in english</Link>
+          <Link href="/order-product">order</Link>
         </div>
       </div>
 
