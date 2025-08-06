@@ -5,8 +5,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-providers";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+// import { usePathname } from "next/navigation";
+// import { useState } from "react";
 import { ErrorWrapper } from "./error-wrapper";
 
 const geistSans = Geist({
@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const [value, setValue] = useState("")
+  // const [value, setValue] = useState("")
 
   const navLinks = [
     // { name: "register", href: "/register" },
@@ -44,23 +44,25 @@ export default function RootLayout({
     { name: "dashboard", href: "/dashboard" },
   ]
 
-  const pathname = usePathname()
+  // const pathname = usePathname()
+  console.log("layout.tsx");
+  
 
   return (
     <html lang="en">
-      <ThemeProvider>
+      <ThemeProvider >
 
         {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
         <body >
           <header className="header gap-7 p-[1.4rem] bg-[black] text-[white] text-[1.5rem] text-center">
             {
               navLinks.map((element, index) => {
-                const activeLink =
-                  pathname == element.href || (pathname.startsWith(element.href) && element.href != "/")
+                // const activeLink =
+                //   pathname == element.href || (pathname.startsWith(element.href) && element.href != "/")
                 return (
                   <Link
                     key={index}
-                    className={activeLink ? "font-bold" : ""}
+                    // className={activeLink ? "font-bold" : ""}
                     href={element.href}
                   >
                     <li>{element.name}</li>
@@ -69,9 +71,9 @@ export default function RootLayout({
               })
             }
           </header>
-          <ErrorWrapper>
+          {/* <ErrorWrapper> */}
             {children}
-          </ErrorWrapper>
+          {/* </ErrorWrapper> */}
           <footer className="p-[1.4rem] bg-[black] text-[white] text-[1rem] text-center">
             footer
           </footer>
