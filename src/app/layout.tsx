@@ -50,7 +50,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <ThemeProvider >
+      {/* <ThemeProvider > */}
 
         {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
         <body >
@@ -65,7 +65,7 @@ export default function RootLayout({
                     // className={activeLink ? "font-bold" : ""}
                     href={element.href}
                   >
-                    <li>{element.name}</li>
+                    <li className="text-white">{element.name}</li>
                   </Link>
                 )
               })
@@ -78,7 +78,7 @@ export default function RootLayout({
             footer
           </footer>
         </body>
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
 
     </html>
   );
