@@ -192,28 +192,34 @@ button {
   }
 }
 
-/* .loader-wrapper{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-} */
-
 .image-slider-container {
   margin: 0 auto;
   width: 500px;
+  padding: 0.3rem;
+}
+
+.slider-box {
+  margin: 0 auto;
+  border: 1px solid rgb(138, 137, 137);
+  width: 600px;
+  border-radius: 5px;
 }
 
 .image-slider-container .slick-prev:before,
 .image-slider-container .slick-next:before {
   color: black;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 }
 
-.player{
+.player {
   width: 180px;
   border: 1px solid #cac9c7;
   border-radius: 8px;
   padding: 0.8rem 0.4rem;
   cursor: pointer;
+}
+
+.slider {
+  padding: 2rem;
+  background-color: #c5c4c4;
 }

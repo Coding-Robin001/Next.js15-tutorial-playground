@@ -10,7 +10,9 @@ export default function ImageSlider() {
     dots: true,
   };
   return (
+    <>
     <div className="image-slider-container">
+
       <Slider {...settings}>
         <div>
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfv6U5LHW0pvmRpiONl-ywM14Avruw-HyxemXV0CpuIHDO1G8xzL-QUj691W9_bV0pHfgHzTPfOphhWDkkio2mYX-b_H3b64e8OL7TkJg" />
@@ -26,5 +28,7 @@ export default function ImageSlider() {
         </div>
       </Slider>
     </div>
+
+    </>
   );
 }

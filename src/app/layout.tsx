@@ -54,7 +54,7 @@ export default function RootLayout({
 
         {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
         <body >
-          <header className="header gap-7 p-[1.4rem] bg-[black] text-[white] text-[1.5rem] text-center">
+          {/* <header className="header gap-7 p-[1.4rem] bg-[black] text-[white] text-[1.5rem] text-center">
             {
               navLinks.map((element, index) => {
                 // const activeLink =
@@ -70,7 +70,7 @@ export default function RootLayout({
                 )
               })
             }
-          </header>
+          </header> */}
           {/* <ErrorWrapper> */}
             {children}
           {/* </ErrorWrapper> */}
