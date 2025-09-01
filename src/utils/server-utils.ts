@@ -1,3 +1,4 @@
+import "server-only"
 
 export const serverSideFunction = () => {
     console.log(
@@ -8,4 +9,14 @@ export const serverSideFunction = () => {
     )
 
     return "server result"
+}
+
+
+export default function serverFunction() {
+
+    //will throw a build-time error as server-side APIs dont work on clients
+    const fs = require("fs");
+    const data = fs.readFileSync("secret.txt", "utf-8");
+
+    console.log(data)
 }

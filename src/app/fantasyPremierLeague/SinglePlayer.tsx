@@ -1,7 +1,7 @@
 import React from 'react'
 
-const SinglePlayer = ({ name, price, position, country, totalFplPoint }
-    : { name: string, price: string, position: string, country: string, totalFplPoint: number }) => {
+const SinglePlayer = ({ name, price, position, club }
+    : { name: string, price: string, position: string, club: string}) => {
     console.log(position)
     return (
         <div className='player'>
@@ -10,7 +10,7 @@ const SinglePlayer = ({ name, price, position, country, totalFplPoint }
                 <div>
                     <div className='flex items-center gap-12'>
                         <p>{price}</p>
-                        <p>{country}</p>
+                        <p>{club}</p>
                     </div>
                     <div className='flex items-center gap-12'>
                         <p>{position}</p>
@@ -23,7 +23,6 @@ const SinglePlayer = ({ name, price, position, country, totalFplPoint }
                         </div>
                     </div>
                 </div>
-                <h3>Total FPL point: {totalFplPoint}</h3>
             </div>
         </div>
     )
