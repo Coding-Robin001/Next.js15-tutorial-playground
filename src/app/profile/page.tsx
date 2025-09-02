@@ -1,18 +1,23 @@
 "use client"
 
 import { useTheme } from '@/components/theme-providers'
-import React from 'react'
-// import { ThemeProvider } from '@/components/theme-providers'
+import ThemeButton from '@/components/themeButton'
 
 const Profile = () => {
-
-  const theme = useTheme()
+  const { theme } = useTheme() 
 
   return (
+    <div className='main flex h-100 justify-center align-center'
+      style={{ backgroundColor: theme.colors.secondary, color: theme.colors.primary }}
+    >
+      <h2
+        className='text-[2rem]'
+      >
+        Profile page (client)
+      </h2>
 
-      <div className='main flex h-100 justify-center align-center'>
-        <h2 className='text-[2rem]' style={{ backgroundColor: theme.colors.primary }}>Profile page</h2>
-      </div>
+      <ThemeButton />
+    </div>
   )
 }
 

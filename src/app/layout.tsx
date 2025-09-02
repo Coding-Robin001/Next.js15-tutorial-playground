@@ -46,13 +46,14 @@ export default function RootLayout({
 
   // const pathname = usePathname()
   console.log("layout.tsx");
-  
+
 
   return (
     <html lang="en">
       {/* <ThemeProvider > */}
 
-        {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
+      {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
+      <ThemeProvider>
         <body >
           {/* <header className="header gap-7 p-[1.4rem] bg-[black] text-[white] text-[1.5rem] text-center">
             {
@@ -72,13 +73,13 @@ export default function RootLayout({
             }
           </header> */}
           {/* <ErrorWrapper> */}
-            {children}
+          {children}
           {/* </ErrorWrapper> */}
           <footer className="p-[1.4rem] bg-[black] text-[white] text-[1rem] text-center">
             footer
           </footer>
         </body>
-      {/* </ThemeProvider> */}
+      </ThemeProvider>
 
     </html>
   );

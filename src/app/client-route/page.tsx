@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 export default function ImageSliderClient() {
+
   const settings = {
     dots: true,
   }
