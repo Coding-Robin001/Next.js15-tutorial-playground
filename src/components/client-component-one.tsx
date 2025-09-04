@@ -9,6 +9,7 @@ const ClientComponentOne = ({ children }: { children: React.ReactNode }) => {
     return (
         <div>
             <h1>{name}</h1>
+            <p>hello</p>
             <p>client component one</p>
             <ClientComponentTwo />
             <ServerComponentOne />
