@@ -1,0 +1,627 @@
+
+NEXTJS 15
+
+
+day1
+
+- a react framework to create fullstack appps
+
+-NextJS simplifies the process of building production-ready web apps
+
+- uses react for building UIs but also offers more 
+fearutes(routing,data fecthing,optimized rendering) out of the box without needing 
+external libraries
+
+- nextjs has rules/conventions that must be followed to use/implmenet its features
+
+- some features nextjs gives us out of the box
+1. routing(no need for 3rdparty library like axios)
+2. it simplifies routing by using file-based routing
+3. allows api routes
+4. flexible rendering(supports both server-side and client-side rendering). when implemented
+properly, it improves performance and search engine optimzation
+5. strealined data-fetching(makes data fetching more straight-forward)with built-in async
+support in components 
+6. flexible styling approaches(css modules, tailwind, css-injected solutions) to 
+match user preference
+7. out-of-the-box optimization for images,fonts,scripts enhancing core app web vitals and
+overall user experience
+8. dev and prod build system
+
+
+-npx create-next-app@latest
+
+
+day2
+- generated a nextjs 15 app with the npx create-next-app@latest command, went with basic 
+installtion prompts
+- clicked yes to typescript,ESlint, appRouter,tailwind,and to SRC directory
+- rendwered my first 'hello world' in a nextjs app
+- studied the folder structure(mostly similar to react)
+- packkage.json holds all project dependencies, dev depepndecies and scripts
+- node_modules holds all installed dependencies
+- public folder holds all statuc assets like images/svgs
+- .next folder is where a nextJS gets served from in dev/prod mode
+- the SRC folder contains the app folder which is the app router(where the main/job is being
+done)
+- when we run yarn run dev, execution starts from package.json,moves into the
+layout.tsx rendering the root layout component,then looks for page.tsx folder in the app
+folder and renders it in the root layout
+- difference between page.tsx and layout.tsx in nextjs?
+- page.tsx slots into layout.tsx as one of its children
+
+
+day3
+- understanding React-server-component(RSC) as a prerequisite for understanding how routing
+works in nextjs
+ - RSC is a new architecturevintroduced by the react team and its adopted by nextjs
+- RSC architecture introduces new ways of creating react components by dividing them
+into 2 parts. 1.server components 2.client components
+- by default, all files in nexjs are treated as server components
+- server-side components performs basic server-side tasks eg reading files, fetching data
+directly from a db
+- trade off with server-side components is that they cant use react-hooks(useState,useEffect),
+or handle user interactions(forms)
+- client components are traditionl/typical reactvcomponents
+- to create client components you'll need to add "use client" at the top of component file
+- server-components waits for certain operation to complete before rendering content
+
+
+day4
+- routing in nextjs
+- nextjs uses a file-system based routing system
+- file-system based routing means URLs you can access in your browser are determined by how
+you organize your files and folders in your code
+- routing conventions/rules to remeber and adhere to
+1. all routes must live inside the app folder
+2. routes files must be named page.js or page.tsx depending on if you're using typescript
+3. each folder represents a segmentvof the URL path
+- routes are basically tid to their folder names within the app directory
+- navigate into app directory, create folder, the page.tsx/page.js file inide the folder 
+will automatically be treated as a route
+- nextJS automatically create a layout.tsx(behind-the-scene) when you try to acess the 
+root route
+- and if you try to aceess a path/route that hasnt been created(folder/page.tx not exist inside app
+dir, nextjs has you covered by automatically serving a notFound 404 page. no ned to create
+a page for that. cool.
+- eliminates the need to mess aroung installing/configuring routers in your code. nice
+- files and folders does all the heaving lifting concerning routing.
+- an exmaple of how nextjs favors conventions over configurations in routing and react generall
+
+*- sooo, only a server-component can be served as a route? if you mark the page with
+"client" it becomes a client component and will not be recognized as a route?
+
+
+
+
+day5
+- Nested routes
+- create sub-folders with a page.tsx inside the route folders. pretty-straighforward and effi
+cient
+- nextjs basically mirros the folder structure to create/render a url.
+
+
+day6
+Dynamic routes
+- predefined nested routes isnt always practical for complex apps/scenarios.
+- dynamic routes offer more flexiblility 
+- instaed of creating predefined nested routes for each elements(could be thousands which is
+obviously not realistic or scalable), we use dynamic routes by creating a special subfolder
+within the route folder but with square brackets, and then create a page.tsx route inside it
+- nextJS treates folder names in square brackets[] as dynamic segments making a route
+dynamic and flexible
+- it gets cooler.
+- every page defined in the app router recieves a route parameter through the 
+parameters prop
+- so params is an object that can be accessed/destructured in each page
+- the type of the params is a promise that resolves into an objectt containing the dynamic 
+segment as key value pairs
+- with server-components, we can use async await to resolve the promise and access the
+dynamic segment as key value pairs
+- the dynamic routes approach is super-useful for building list-detail views in complex apps.eg
+an eccormerce with millions of products with details, a blog with blogPosts/blogDetails
+-url loooks like "http://localhost:3000/product/ferrari2025"
+
+*- its a promise cos its not resolved yet? but when it resolves, we expect it to resolve
+as an object of key-value pair?
+
+code for day 6 or codeSharer
+import React from 'react'
+
+const ProductDetails = async ({ params, }: {
+    params: Promise<{ productId: string }>
+}) => {
+
+    const prodId = (await params).productId;
+
+    return (
+        <div className='main flex h-100 justify-center align-center'>
+            <h2 className='text-[1.5rem]'>Product details page, a dynamic subroute of product page</h2>
+            <p className='text-[1.8rem]'>details about product: <span className='text-[purple]'>{prodId}</span></p>
+        </div>
+    )
+}
+
+export default ProductDetails
+
+
+
+DAY7
+-nested dynamic routes
+- for handling multiple dynamic segments, alot of apps require it.
+- you need a "/products/1/review/1" routes to render/display review 1/review 2 of each productItem.
+- thats a multiple path segments. and we need to think in terms of nested folders
+- we create a review folder inside the [productId],then a special square bracket folder as a 
+dynamic route [reviewId], then a page.tsx within the sqaure bracket subroute.
+- in review page, we extract productId and reviewId from params(both are promises that resolves 
+into an object of keyvalue pairs)
+-url looks like "http://localhost:3000/product/ferrari2025/review/20"
+- we createvnested dynamic routes by using dynamic segments with nested folder names
+- nextjs has another way to handle multiple dynamic path segments called the "catch all segments"
+- each path after a slash/ is path segment. locahost:3000/product has one segment, /product/1, 2
+segments, /product/3/review/2 thats 4 path segments.
+
+-are pages generated from dynamic pages represented as sepreate/individual files for each path 
+behind the scenes or is it really just that one single file and the info is just being fetch 
+into it?
+
+
+DAY8
+CATCH ALL SEGMENTS(another powerful routing feature in NextJS
+- say we have 20features with 20concepts = 400routes. nextjs uses a file-based routing system which
+would mean 100seperate files in a project but with dynamic routing feature we can reduce that to
+i file for feature, one file for concept nested within the doc folder but say we want more
+segment paths? like a documentation sites where nesting goes deep. it could get ugly fast.
+- enter 'catch all segment' feature
+- its perfect for documentation sites where you want different url segments for organization and 
+seos but keep the same basic layout
+- 'catch all segment' feature shines when we want to reduce level of nesting in our routes folders.
+ the deeper the nesting the more chaotic and tedius to maintain.
+- since all pages in doc sites shares the same layout ,its smart to handle all route segments with
+one file with the help of the 'catch all egment' feature.
+- to set the 'catch-all-segment' feature up, we use a special nextjs naming convention where we 
+use square brackets with three dots followed by url/route representaion name[...slug]. all 
+route within this folder get caught by parent/main segment/route
+- the 'catch-all-segments' features essentially captures all url segments and handles them in a 
+single file
+- perfect for when ou want different segments urls for organization and seo but keep the 
+same basic layout
+- we basically use the slug aaray of url strings to fetch the right docs to the screen by extracting
+it from the params
+- ther is also an 'optional-catch-all-segment'. you do this by wrapping the slug segment inside
+an extra square brackets which makes a double square brackets [[...slugs]]
+
+
+
+
+
+
+
+
+day 9
+CREATING A CUSTOM 404 PAGE USING THE APP ROUTER
+- by default, nextjs gives us a default 404 page when you visit an invalid url/route that does not
+exist in the app folder
+- the customizable 'not-found' page must be named 'not-found.js'/'not-found.tsx'. its a nexjs
+naming convention thing
+- not-found page can also be triggered programmaticaly/in your code using the 'not-found' function
+provided by next/navigation
+
+    if (parseInt(reviewId) > 1000) {
+        notFound()
+    }
+
+- you can also create specific not-found page for different sections of your apps(cool)eg not-found
+page for reviews when it exceed 1000 as we've programtically stated.
+- nextjs uses the most specific not-found page it can find before defaulting to the global one
+- the not-found component does not accept props though
+- we can render dynamic content in the not-found page by extracting paths into the page with the
+pathname hook from nextjs/navigation
+
+
+
+day 10
+ understanding file collocation in nextjs
+- routes and other files can be collocated inside the app dir/folder
+- point of this is, you can safely collocate files inside the app directory without them being
+mistankenly treated as routes.
+- for a file to be treated as a route, it must satisfy the route conditions(inside app dir,and must
+be named as page.js/page.tsx
+- its also possible to keep other non-route files outside the app directory. you could create a
+new directory inside the src and keep them there. some prefer that approach
+
+
+
+day10B
+PRIVATE FOLDERS IN NEXTJS
+- just another way to organize files in your nextjs projects
+- like a way to tell nextjs "hey this folder is for internal logic/stuff, dont include it in
+the routing system"
+- the folders and subfolders are excluded from routing
+- to create a private folder, just add _ before the file name and it automatically excludes any file
+created within it from anything routing
+- they are super useful for keeping your UI logic seperate from routing logic
+- also easier to group related files in your code editor
+
+
+day11
+ROUTE GROUPS IN NEXTJS
+- basically lets us organize routes and project files without disrupting the url structure in a 
+nextjs app.
+- to use route groups, you wrap the folder in a parentheses which basically tells nextjs to
+ignore the folder as a route and treat it as a basic organizational tool
+- they allow multiple route files to be organized together in our code editor without disrupting
+urls definitions and structure
+-super useful when working with a group cos of how it helps organize and label
+
+
+INTERMISSION
+-i've explored pages so far, which are route-specific UI components
+- next, LAYOUTS IN NEXTJS
+
+
+
+DAY12
+ Layouts in nextjs(how they work, their importance
+- a layout is a UI that is shared between multiple pages in your app
+- we dont to create a layout from scratch, nextjs provides one by default. a layout.tsx file that
+follow the special nextjs file naming conventions.
+- the layout file in the app folder is called the root layout and is not optional. all nextjs app
+must have one
+- file so important, if you delete it, nextjs will automatically regenerate it lol
+- layout renders the page.tsx as children prop.  page.tsx is nested inside the layout file
+as a children prop which is a type of React.Node
+- layout stays consistent, the page.tsx components which is a route gets repleced and rendered 
+depending on the route we are on.
+- it ensures a consistent structure across the entire app. actually very easy/convinient
+
+
+
+- DAY 13
+NESTED LAYOUT IN NEXTJS
+- we can have a layout inside a layout in nextjs. useful for creating specific layouts for different
+section of our page. eg special layout for productDetails section.
+- all we need to do is add a layout.tsx(has to be layout.tsx, its a nextjs naming convention thing)
+ file inside productDetails folder
+- the layout.tsx is just another react components but will act as a layout specifically/only for the
+ dynamic productDetails page.(how cool is this?)
+- so, product page only has the root layout but product details page has not only the root layout 
+but also a special layout just for it.
+- the layout component acts as a children prop/page for the root layout and then the productDetails
+page becomes a children for the custom layout page created for it.
+- very powerful pattern and feature for creating custom and specialiized/nested layouts in nextjs 
+
+
+
+
+day 14
+- multiple root layouts in nextjs
+- eg say we want a part of our app/page not not have any customization that comes with the layout
+we defined.  
+- this is only possible in nextjs using routeGroups and obviosly why they are so powerful in nextjs
+- we just have to make sure no default layout.tsx file exist in app folder. we group files/routes
+together using route groups and create a sepcialized layoutsvfor each groups. simple and intuitive
+enough.
+- route groups makes our code organzied/maintainable but also allow us to create customized UIs 
+for different parts of our apps
+
+
+-DIFFERENCE between path/segment/subroute? can they be used interchangeably?
+www.localhost.com/about. is /about a subroute or a path or a segment ?
+
+day15
+ ROUTING METADATA IN NEXTJS
+- the metadata api in nextjs. a powerful featur that lets us define metadata for each page in nextjs
+which helps with SEO
+- defininf metadata ensures our content looks great when its shared or indexed by search engines
+helping with SEO
+- with the app router in nextjs, we have 2 ways to handle metadatas in layout.tsx or page.tsx files
+1. we cann export a static metadata object
+2. export a dynamic generateMetaData function
+
+- some rules about configuring metadata
+1. both layout.tsx and page.tsx files/pages can export metadata
+2 layout metadata applies to all pages while page.tsx metadata is specific only to that page
+3. metadata follow a top-down order, starting from root-level
+4. when metadata exists in multiple places along a route, they merge together, with page metadata
+overiding layout metadata for the case of any matching properties. deeper path segments take priority
+
+-for static metadata configuration, we create and export a metadata object. mostly straightforward.
+
+-CONFIGURING DYNAMIC METADATA could get a little tricky
+- its useful for when metadatas depends on dynamically generated content eg current route parameters
+or some info from an api or even metadata defined in parent segments/path/route
+- we setup dynamic metadata by defining and exporting a generateMetadata function 
+in page.tsx or layout.tsx file eg productDetails file/page where all productID are generated/extracted
+from the route params
+
+- something to note is that you cant both metadata object and the generateMetaData function in the same
+route segment/page. its one or the other
+
+- a crucial limitation with working with metadata in nextjs is that it doesnt work in client components
+- a workaround would be to create a server-component and import the client component into the server
+and export metadata from there. its a recommended way to handle metadata in client components
+
+
+DAY16
+- TITLE METADATA IN NEXTJS
+- its main use is to define document title
+- could be string or object
+- nextjs gives us option to define the title metadata as objects for better/more control. 
+3 powerful options
+
+1. setting default fallback value incase the metadata/title of a page isnt set
+2. using the template option/field to add consistent/fixed prefixes/suffixes to page title(applies to
+child routes). useful when you want consistent title formatting accross your page assuming its a
+multi-page app.
+3. using the abolute property in a child route to override any template set in the layout or by the 
+parent route/segment
+
+
+DAY17
+LINK COMPONENT IN NEXTJS
+- navigating through page with the link component
+- dynamic routing within our nextjs app
+- 'replace' property when placed on a link element as an attribute, replaces current history.skips it.
+takes you back to prev before current prev.
+
+
+
+DAY18
+ACTIVE LINKS IN NEXTJS
+- sstyling active links
+- nextJs gives us a usePathName hook to extract the current path and we can use it to programmtically
+add dynamic styling to a link element 
+
+
+
+DAY 19
+PARAMS AND SEARCHPARAMS IN NEXTJS
+
+-in any given url, PARAMS is a promise that resolves into a dynamic route paramters(eg ID)
+
+- we define a dynamic(or not) params in our code first, usually to represent some ID, which then get 
+used to construct a route url. from that routeURL we can then extract that dynamicParam(eg ID) in our
+code, its usually a promise. and use it programmtically for our next step or another step.
+
+
+- SEARCHPARAMS on the other hand is similar to PARAMS its a promise that resolves into an object that
+contains query paramters(eg sorting, filter).
+- difference between dynamic route parameters(IDs) and query params (filter,sorting)?
+- whatever comes after ? in a URL is a query params not dynamicRoute params. 
+- we can extract/access both params and searchParams in code in nextjs both in server and client 
+components.
+- note that client components in nextjs do not support/allow async await
+- so to extract params and queryParams in client component we use a "use" hook from react.and wrap 
+params and queryParams around it.
+- another important note is that page.tsx components/routes has access to both params from dynamic
+routes like ID but also queryParams but layout.tsx components only gets access to params. not queryParams
+
+
+- does hooks genrally only work in client components in nextjs
+
+
+
+DAY20
+-navigating programatically in nextjs app using the useRouter hook or redirect from "next/navigation'
+- as its a hook ,it can only be used in a client component
+- so navigation can only be done from a client component?
+- you can navigate forward or back or replace current route. router gives us flexibility
+- for server components you can navigate programatically within the app using the 'redirect'hook? from
+next/navigation. you call it and pass the destination route as argument.
+
+
+
+day21
+TEMPLATE IN NEXTJS
+- layouts only mount new page content while keeping common content intact
+- what is mounting and unmounting in reacct? what do i need to understand about this concept/topic?
+
+- layouts do not remount shared components which leads to better performance. any components in a layout.tsx
+file remains static and only children pages gets remounted and thats where template files comes in.
+- with templates shared components gets remounted. a new instance of the shared components gets created.
+-templates are similar to layouts.alternative to layouts actually.differnce is that whenever user navigates
+between routes any shared components are remounted too.
+- when you use templates
+1. dom elements are recreated and re-rendered
+2. state is cleared
+
+- you use the template.tsx or template.js nextjs naming convention instead of layout.tsx/layout.js. all other
+things are same as its similar to a typical layout file. they both accept children props
+- you can also nest layout and template files within each other
+
+
+-special files with special naming conventions in nextjs includes
+1. page.tsx
+2. layout.tsx
+3. not-found.tsx
+4. template.tsx
+5. loading.tsx
+6. error.tsx
+
+this is all the special files in the app router. 6.
+
+their hierachy->
+
+<Layout>
+    <Template>
+        <ErrorBoundary fallback={<Error />}>
+            <Suspense fallback={<Loading />}>
+                <ErrorBoundary fallback={<NotFound />}>
+                    <Page/>
+                </ErrorBoundary>
+            </Suspense>
+        </ErrorBoundary>
+    </Template>
+</Layout>
+
+
+
+
+DAY 22
+LOADING UI IN NEXTJS
+- has a special naming convention loading.tsx(any file created as 'loading.tsx' will be treated as a 
+loading UI in nextjs
+- its used to create loading states for users to see while waiting for content to load in a specific 
+route segment
+- to create a loading state, just add loading.tsx in the right folder/route
+- loading.tsx file automatically wraps the page.tsx and its nested children in a react-suspense-boundary
+- benefits of using a loading state/ui
+1.to give users feedback when they navigate somewhere new
+2. makes app feels snappy and responive to user
+3. nextjs keeps shared layouts interactive evne while page loads(nav/side bars are still clickable) which
+ultimately improves user experience
+- download a loading spinner. about 2 or 3. render them and screenshot for content/posting.keep it casual
+and a step fun.
+
+
+
+DAY 23
+ERROR HANDLING IN NEXTJS(with the error.tsx file)
+- when an error occurs in our nextjs app and its 'unhandled' its crashes our entire app and we obviosuly
+dont want that as its not a good user experience. managable in dev mode but unacceptable in production
+- its worse coe its in a deeply nested page/component, so the entire app breaks. not good.
+- good practice to handle erros gracefully and contain the errors within the affected part/page/components
+and keep the rest of the app and current state running and unaffected. best for UX. which is where error.tsx
+comes in handy
+- also has a special naming convention error.tsx(any file created as 'error.tsx' will be treated as a 
+error-boundary file within that folder/route.
+- THE ERROR.TSX FILE acts as an error-bondary around the page.tsx file in the folder/route basically catches
+and contains any error within the page.tsx
+- error.tsx files must be client components
+- most important thing is that it works as an error boundary i.e app wont crash, it just display an error
+messge for the particular page that throws an error and keeps working.cool.
+- error.tsx is very powerful.
+1. wraps routes segments and their nested children in react error boundary
+2. you can create custom error UIs for specific segments using the file-system hierechy
+3. isolates error to only affected segments/routes/pages of your app while ensuring your app continues
+to function normally
+4. allows page to recover from errors gracefully without requiring full app reload
+
+
+
+
+
+DAY24
+-ERROR HANDLING PART 2(RECOVERING FROM TEMPORARY/SIMPLE ERRORS BY RETRYING)
+- using a reset function  
+- we add a button in our error.tsx to trigger a reset(re-rendering) of the component in page.tsx
+- note that reset hooked to a button will keep trying to rerender the component in client-side not server
+side
+- difference between server-side and client-side rendering of components???????????
+- difference between useRouter from next/router and next/navigation?????????????
+- what does 'startTransition' hook do? ensures the 
+- to attempt server-side recovery, we use 'startTransition' and 'useRouter' hooks from nextjs
+
+
+
+DAY25
+- ERROR HANDLING IN NESTED ROUTES
+- folder structure affects the behavior of the error.tsx file
+- errors always bubble up to find the closest parent error boundary. i.e error.tsx files handle errors not
+just in the folder/directory its created in but also for all the folders/routes nested inside/below it too.
+- by strategically placing error.tsx files in different levels in our route folders, we control how
+detailed our error-handling gets
+- again, error will keep bubling up till it finds an error boundary. starting from nested folders to parent
+and so on. if no boundary,it crashes whole app
+- the postion of the error.tsx file makes a huge difference on how error gets handled,on what part of the
+UI gets affected when things go wrong
+
+
+DAY26
+- ERROR HANDLING IN LAYOUTS
+- error boundaries(error.tsx) doesnt catch errors thrown in layout.tsx if they are on the same hierachy-level
+- and the reason i because of how the component hierachy works, layouts components sits above the error-boundary
+components in the component(rendering?) tree
+-senible solution is to always have an error.tsx file in the uppermost route level/foler which automatically
+ catch all errors in nested folder/route including the layout.tsx files within it
+
+
+- DAY27
+-ERROR HANDLING ON A GLOBAL LEVEL
+- important question: if error.tsx dont catch errors in layouts on the same path level then how do we
+ handle errors in the root layout.tsx of our app router directory? it doesnt have a parent segement/folder
+that we can place an error-boundary to catch it, so what do we do?
+- for this specific scenario, nextjs gives us a special file called "global-error.tsx" file that goes in the
+root app directory. its the last line of defence when something goes wrong in your app 
+- error.tsx file must be a client components
+- the global-error.tsx wraps entire app in an error boundary, if anything goes wrong in any part of the
+app on the same route level or even nested, it catches. assuming the nested folders do not hav their own
+custom error.tsx file, of course
+-and thats the global-error.tsx file in action how it differs from the regular error.tsx file
+- its always advisable to make the global-error.tsx file as simple as possible. just html and css as there
+is no more error-catching after that and if something goes wrong in this file, app crashes.which is obvio
+not good!
+- yep i think ive covered all key-concpet in error handling in nextjs
+
+
+
+DAY28
+ADVANCED ROUTING CONCEPT IN NEXTJS
+1. PARALLEL ROUTES
+- parallel route is an advanced routing mechanism feature(in next15?) that lets us render multiple pages
+simultaneously within the same layout
+- exmaple is building a complex dashboard where we need to display 3 seperate components(user analytics,
+revenue metrics, notifications)all at once within a single dashboard route/page. this is a fairly common
+case in web dev.
+- the typical/traditional way would be creating seperate components for each parts and organizing them
+inside the layout.tsx file inside a dashboard folder within the app folder. and this works parfectly
+- parallel routes achieve the same result but with some added benefits
+- parallel routes in nextjs are defined using a feature known as slots
+- slots help organize content in a modular way
+- to create a slot we use the @folder naming convention
+- each defined slot automatically becomes a prop in its corresponding layout.tsx
+-** instead of creating seperate components for each parts of our dashboard, we create 'slots'
+- NO IMPORTS are needed in the layout.tsx file when you create slots with @ naming convention
+- slots are not route segments and therefore do not affect our url structures.
+- some use cases in which slots are perfect for includes dashboards, multi-panel layouts, split-view interfaces,
+complex admin interfaces and basically any UI where seperate UIs aggregate in a single layout and operate 
+independently
+- benefits of building complex UIs with parallel routes includes(what makes them so special)
+1.perfect for spliting a layout into manageable slots(especially in team settings just like regualr components)
+2. independently route handling(number 1 main superpower of parallel routes)
+3. sub-navigation(number 2 key feature of parallel routes)
+
+- independent route handling means each slots gets the same feature a route gets eg error.tsx files for error-hand;ing
+withon its own page/slot, loading.tsx too. its a granular control thats important cos usually in a dashboard
+different sections load in their own different times depending on the api and encounter different/unique errors
+all of those things can be managed within its own components/slots.
+- user can also subnavigate effortlessly within a parallel route. each slot pages can essentially function
+like a mini-app with its own navigation and state management without affecting other parts of the app/dashboard
+page/layout. no unneccasry reloads or layout shifts
+-******SIMULATE HOW THE 3/4? COMPONENTS ARE MOVING/OPERATING/FUNCTIONING SEPERATELY BESIDE EACH OTHER
+MAKE ONE COMPONENT SHOW CONTENT, ANOTHER LOADING SPINNER, ANOTHER ERROR. TO REALLY SHOW CLEARLY THE ADVANTAGE
+OF PARALLEL ROUTES AND HOW THEY HELP KEEP EACH COMPONENTS CONTAINED WITHIN ITSELF.
+
+
+
+DAY29
+unmatched routes in parallel routes due to sub-navigation and how default.tsx pages help solve this problem 
+in nextjs
+- WHEN DISCUSSING SUBNAVIGATION IN PARALEL ROUTES, WE NEED TO UNDERSTAND AN IMPORTANT CONCEPT CALLED 'UNMATCHED
+ROUTES'
+- Wwhen you usubnavigate within a slot, only changed components gets re-rendered, all other components/slot pages
+in the dashboard-layout remain unchanged. no unneccesary page reloads, or layout shifting. very smooth user
+experience
+- unmatched routes happens in a slot component when you subnavigate to another link, all other slot components
+within the page that do not care about the sub-nav becomes unmatched-routes. so nextjs gives us a convenient
+way to handle these. by defining a fallback routes with a default.tsx pages. so that when we sub-navigate, the
+other slots that do not care can have a fallback value/route (usually containing the exact content of original
+route/slot/component).its intuitive.
+- so to avoid getting a 404 error from an unmatched route, we use fallback/default routes
+- when we reload fromvthe sub-navigated route, the defaults content/components kick it.
+
+
+
+
+
+DAY30
+- CONDITIONAL ROUTES(PARALLEL ROUTES ENABLE AND MAKES IT POSSIBLE)
+- just like with regualr components, we can also conditionally render difference routes(slots) with an extra
+benefit of being well structured under the same url. also with its own error handling and its own loading states
+and also subnavigation page (signup or forgotPassword routes) 
+
+
+
+
+
