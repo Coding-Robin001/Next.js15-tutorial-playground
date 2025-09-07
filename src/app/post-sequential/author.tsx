@@ -6,11 +6,17 @@ type Author = {
 }
 
 const Author = async ({ userId }: { userId: number }) => {
+    
+     await new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("intentional delay to simulate loading UI!")
+        }, 5000);
+    })
     const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
     const user: Author = await response.json()
 
     return (
-        <div>
+        <div className='flex gap-4 text-[gray]'>
             <span>Written by : </span>
             <p>{user.name}</p>
         </div>

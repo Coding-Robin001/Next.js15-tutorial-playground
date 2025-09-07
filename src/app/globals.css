@@ -223,3 +223,23 @@ button {
   padding: 2rem;
   background-color: #c5c4c4;
 }
+
+.blog-box {
+  /* padding: 2rem 1rem; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+
+}
+
+.blog {
+  width: 550px;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #fff;
+  color: black;
+
+  /* background-color: black; */
+  /* display: flex; */
+}
