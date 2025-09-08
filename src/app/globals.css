@@ -243,3 +243,17 @@ button {
   /* background-color: black; */
   /* display: flex; */
 }
+
+.parallel-box{
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+}
+
+.parallel-left{
+  /* border: 1px solid red; */
+}
+
+.parallel-right{
+  /* border: 1px solid red; */
+}
