@@ -14,6 +14,7 @@ const PostsParallel =  ({ params }: Props) => {
             <h2 className="text-[2rem] ml-4">User Profile</h2>
 
             <div className="parallel-box">
+                
                 <Suspense
                     fallback={
                         <div className="flex flex-col items-center justify-center gap-3 h-100 w-[500px]">
