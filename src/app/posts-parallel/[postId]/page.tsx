@@ -1,52 +1,45 @@
-import UserPosts from '../usersPost';
-import UserAlbums from '../userAlbum';
+import { Suspense } from "react";
+import UserPosts from "./usersPost";
+import UserAlbums from "./userAlbum";
 
-type Post = {
-    userId: number,
-    id: number,
-    title: string,
-    body: string
+type Props = {
+  params: { postId: string }
 }
 
-type Album = {
-    userId: number,
-    id: number,
-    title: string,
-}
-
-async function getUserPosts(userId: string): Promise<Post[]> {
-
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
-    if (!response.ok) throw new Error("Failed to fetch posts");
-    return response.json();
-}
-
-async function getUserAlbums(userId: string): Promise<Album[]> {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/albums?userId=${userId}`);
-    if (!response.ok) throw new Error("Failed to fetch albums");
-    return response.json();
-}
-
-
-const PostsParallel = async ({ params }: { params: { postId: string } }) => {
-    const { postId } = await params
-
-    const postsData = getUserPosts(postId)
-    const albumsData = getUserAlbums(postId)
-
-    const [posts, albums] = await Promise.all([postsData, albumsData])
+const PostsParallel =  ({ params }: Props) => {
+    const { postId } = params;
 
     return (
-        <div className='parallel-wrapper bg-black p-4 min-h-[100vh] text-[#fff]'>
-            <h2 className='text-[2rem] ml-4'>User Profile</h2>
+        <div className="parallel-wrapper bg-black p-4 min-h-[100vh] text-[#fff]">
+            <h2 className="text-[2rem] ml-4">User Profile</h2>
 
-            <div className='parallel-box'>
-                    <UserPosts posts={posts} />
-                    <UserAlbums albums={albums} />
+            <div className="parallel-box">
+                <Suspense
+                    fallback={
+                        <div className="flex flex-col items-center justify-center gap-3 h-100 w-[500px]">
+                            <p className="text-lg text-red-400 font-semibold">Loading posts...</p>
+                            <div className="w-8 h-8 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                    }
+                >
+                    <UserPosts userId={postId} />
+                </Suspense>
+
+
+                <Suspense
+                    fallback={
+                        <div className="flex flex-col items-center justify-center gap-3 h-100 w-[500px]">
+                            <p className="text-lg text-blue-400 font-semibold">Loading albums...</p>
+                            <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                    }
+                >
+                    <UserAlbums userId={postId} />
+                </Suspense>
             </div>
 
-        </div >
-    )
-}
+        </div>
+    );
+};
 
-export default PostsParallel
+export default PostsParallel;
