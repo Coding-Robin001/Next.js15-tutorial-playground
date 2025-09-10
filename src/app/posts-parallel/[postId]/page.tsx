@@ -3,10 +3,10 @@ import UserPosts from "./usersPost";
 import UserAlbums from "./userAlbum";
 
 type Props = {
-  params: { postId: string }
+    params: { postId: string }
 }
 
-const PostsParallel =  ({ params }: Props) => {
+const PostsParallel = ({ params }: Props) => {
     const { postId } = params;
 
     return (
@@ -14,7 +14,19 @@ const PostsParallel =  ({ params }: Props) => {
             <h2 className="text-[2rem] ml-4">User Profile</h2>
 
             <div className="parallel-box">
-                
+                {/* <ErrorBoundary
+                    FallbackComponent={ErrorFallback}>
+                    <Suspense
+                        fallback={
+                            <div className="flex flex-col items-center justify-center gap-3 h-100 w-[500px]">
+                                <p className="text-lg text-red-400 font-semibold">Loading posts...</p>
+                                <div className="w-8 h-8 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
+                            </div>
+                        }
+                    >
+                        <UserPosts userId={postId} />
+                    </Suspense>
+                </ErrorBoundary> */}
                 <Suspense
                     fallback={
                         <div className="flex flex-col items-center justify-center gap-3 h-100 w-[500px]">
@@ -25,6 +37,8 @@ const PostsParallel =  ({ params }: Props) => {
                 >
                     <UserPosts userId={postId} />
                 </Suspense>
+
+
 
 
                 <Suspense

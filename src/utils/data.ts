@@ -1,14 +1,46 @@
-// data.ts
-import { cache } from "react";
+// lib/data.ts
 
-export const getUserPosts = cache(async (userId: string) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
-  if (!res.ok) throw new Error("Failed to fetch posts");
-  return res.json();
-});
+// ----------------- Types ----------------
+export type Post = {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+};
 
-export const getUserAlbums = cache(async (userId: string) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/albums?userId=${userId}`);
-  if (!res.ok) throw new Error("Failed to fetch albums");
+export type Album = {
+  userId: number;
+  id: number;
+  title: string;
+};
+
+// ----------------- Fetch Functions -----------------
+export async function fetchUserPosts(userId: string): Promise<Post[]> {
+  // simulate slow network
+  await new Promise((r) => setTimeout(r, 3000));
+
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch posts");
+  }
+
   return res.json();
-});
+}
+
+export async function fetchUserAlbums(userId: string): Promise<Album[]> {
+  // simulate slower network
+  await new Promise((r) => setTimeout(r, 5000));
+
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/albums?userId=${userId}`
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch albums");
+  }
+
+  return res.json();
+}
