@@ -1,6 +1,4 @@
-// lib/data.ts
 
-// ----------------- Types ----------------
 export type Post = {
   userId: number;
   id: number;
@@ -14,14 +12,12 @@ export type Album = {
   title: string;
 };
 
-// ----------------- Fetch Functions -----------------
 export async function fetchUserPosts(userId: string): Promise<Post[]> {
+
   // simulate slow network
   await new Promise((r) => setTimeout(r, 3000));
 
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
-  );
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch posts");
@@ -31,12 +27,11 @@ export async function fetchUserPosts(userId: string): Promise<Post[]> {
 }
 
 export async function fetchUserAlbums(userId: string): Promise<Album[]> {
-  // simulate slower network
+
+  // simulate slow network
   await new Promise((r) => setTimeout(r, 5000));
 
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/albums?userId=${userId}`
-  );
+  const res = await fetch(`https://jsonplaceholder.typicode.com/albums?userId=${userId}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch albums");

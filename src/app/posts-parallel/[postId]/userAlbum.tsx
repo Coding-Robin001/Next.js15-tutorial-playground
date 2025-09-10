@@ -1,41 +1,16 @@
-import ErrorMessage from "./ErrorMessage";
 
-type Album = {
-  userId: number,
-  id: number,
-  title: string,
-};
-
-async function getUserAlbums(userId: string): Promise<Album[]> {
-  await new Promise((resolve) => setTimeout(resolve, 5000)); // slow fetch
-  const response = await fetch(`https://jsonplaceholder.typicode.com/albummmmms?userId=${userId}`);
-  if (!response.ok) throw new Error("Failed to fetch albums");
-  return response.json();
-}
+import { fetchUserAlbums } from "@/utils/data";
+import { AlbumsList } from "./lists";
+import ClientAlbums from "./clientAlbums";
 
 const UserAlbums = async ({ userId }: { userId: string }) => {
-
   try {
-    const albums = await getUserAlbums(userId);
-
-    return (
-      <div className="w-[550px] mt-4">
-        <h3 className="text-[#fff] text-[1.2rem] mb-4">Albums</h3>
-        <ul>
-          {albums.map((a) => (
-            <li className="bg-[#fff] my-4 p-4 rounded-lg text-[black]"
-              key={a.id}>{a.title}</li>
-          ))}
-        </ul>
-      </div>
-    );
-
+    const albums = await fetchUserAlbums(userId); // SSR; suspends during load
+    return <AlbumsList albums={albums} />;
   } catch (err: any) {
-    return <ErrorMessage message={err.message} color="blue" />;
-
+    // Don’t bubble to error.tsx; render client retry instead
+    return <ClientAlbums userId={userId} initialError={err.message} />;
   }
-
-
 };
 
 export default UserAlbums;
