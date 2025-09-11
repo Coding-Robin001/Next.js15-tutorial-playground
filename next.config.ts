@@ -4,7 +4,9 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true, // 👈 disables ESLint blocking the build
   },
-  /* config options here */
+  images: {
+    domains: ["upload.wikimedia.org"], // 👈 allow external images from Wikipedia
+  },
 };
 
 export default nextConfig;

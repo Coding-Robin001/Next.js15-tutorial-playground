@@ -1,12 +1,14 @@
 
-import { PrismaClient } from '@prisma/client'
+import { prisma } from "../../../utils/prisma"
 import { NextRequest } from 'next/server'
 import { headers, cookies } from 'next/headers'
 
-export const revalidate = 3600
-// export const dynamic = 'force-dynamic'
+// export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
-const prisma = new PrismaClient()
+const count = await prisma.animal.count()
+console.log("Animal count:", count)
+
 
 // GET all animals
 export async function GET(req: NextRequest) {
@@ -26,7 +28,7 @@ export async function GET(req: NextRequest) {
   console.log(cookieStore.get("theme")?.value)
 
   // Parse the limit safely (default to 10 if not provided or invalid)
-  const limit = limitParam && !isNaN(Number(limitParam)) ? parseInt(limitParam) : 3
+  const limit = limitParam && !isNaN(Number(limitParam)) ? parseInt(limitParam) : 10
 
   try {
     const animals = await prisma.animal.findMany({
@@ -48,7 +50,9 @@ export async function GET(req: NextRequest) {
     headers.append("Set-Cookie", "theme=dark; Path=/; Max-Age=604800; HttpOnly; Secure; SameSite=Strict")
 
     // caching logic for browsers/CDN
-    headers.set("Cache-Control", "public, max-age=300") // 5 min
+    // headers.set("Cache-Control", "public, max-age=300") // 5 min
+    headers.set("Cache-Control", "no-store") // 5 min
+
 
 
     return new Response(responseBody, {
@@ -61,7 +65,6 @@ export async function GET(req: NextRequest) {
     return Response.json({ error: 'Failed to fetch animals' }, { status: 500 })
   }
 }
-
 
 
 export async function POST(req: Request) {
