@@ -1,5 +1,4 @@
 import type { StaticImport } from "next/dist/shared/lib/get-img-props";
-import Link from "next/link";
 import { getAnimals } from "@/prisma-db";
 import Image from "next/image";
 
@@ -8,7 +7,6 @@ export type AnimalImage = {
     id: string;
     name: string;
     src: string | StaticImport;
-    // photographer: string;
     randomFact: string;
 };
 
@@ -20,8 +18,8 @@ export default async function animalsDBpage() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100 py-10">
-            <h2 className="text-center text-green-900 text-[2.5rem] font-bold mb-[2rem] drop-shadow-sm">
-                🌿 Animal PhotoFeed
+            <h2 className="text-center text-green-900 text-[2rem] font-bold mb-[2rem] drop-shadow-sm">
+                Animal PhotoFeed
             </h2>
 
             <div
