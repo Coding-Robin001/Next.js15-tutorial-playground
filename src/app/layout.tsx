@@ -40,8 +40,8 @@ export default function RootLayout({
     // { name: "register", href: "/register" },
     // { name: "login", href: "/login" },
     // { name: "forgotPassword", href: "/forgotPassword" },
-    { name: "home", href: "/" },
-    { name: "dashboard", href: "/dashboard" },
+    { name: "Home", href: "/" },
+    { name: "Animal Database", href: "/dashboard" },
   ]
 
   // const pathname = usePathname()
@@ -54,8 +54,8 @@ export default function RootLayout({
 
       {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
       <ThemeProvider>
-        <body >
-          {/* <header className="header gap-7 p-[1.4rem] bg-[black] text-[white] text-[1.5rem] text-center">
+        <body className="">
+          {/* <header className="header gap-7 p-[1.1rem] bg-[black] text-[white] text-[1.1rem] text-center">
             {
               navLinks.map((element, index) => {
                 // const activeLink =
@@ -73,7 +73,9 @@ export default function RootLayout({
             }
           </header> */}
           {/* <ErrorWrapper> */}
-          {children}
+          <div className="min-h-[90vh] flex justify-center items-center">
+            {children}
+          </div>
           {/* </ErrorWrapper> */}
           <footer className="p-[1.4rem] bg-[black] text-[white] text-[1rem] text-center">
             footer
