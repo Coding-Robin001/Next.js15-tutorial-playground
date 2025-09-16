@@ -3,15 +3,19 @@
 import Submit from "@/components/submit"
 import { useActionState } from "react"
 
-import { FormState, createAnimal } from "@/actions'/animals"
+import { FormState, editAnimal } from "@/actions'/animals"
+import { AnimalCard } from "../animals"
 
-export default function AddAnimalForm() {
+export default function EditAnimalForm({ animal }: { animal: AnimalCard }) {
+
 
     const initialState: FormState = {
         errors: {},
     }
 
-    const [state, formAction, isPending] = useActionState(createAnimal, initialState)
+    const editAnimalWithId = editAnimal.bind(null, animal.id)
+
+    const [state, formAction, isPending] = useActionState(editAnimalWithId, initialState)
 
 
     return (
@@ -20,7 +24,7 @@ export default function AddAnimalForm() {
             className="max-w-lg w-[800px] border-green-300 mx-auto p-6 bg-green-50 rounded-2xl shadow-lg space-y-8 border border-green-300"
         >
             <h2 className="text-2xl font-semibold text-center text-green-800">
-                Add New Animal
+                Update Animal
             </h2>
 
             <div>
@@ -29,6 +33,7 @@ export default function AddAnimalForm() {
                     placeholder="Animal Name"
                     className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                     name="name"
+                    defaultValue={animal.name}
                 />
                 {
                     state.errors.name && <p className="text-red-500">{state.errors.name}</p>
@@ -41,7 +46,8 @@ export default function AddAnimalForm() {
                     placeholder="Photo URL"
                     className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                     name="photoUrl"
-                    // required
+                    defaultValue={animal.src}
+                // required
                 />
                 {
                     state.errors.photoUrl && <p className="text-red-500">{state.errors.photoUrl}</p>
@@ -54,13 +60,14 @@ export default function AddAnimalForm() {
                     className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                     // required
                     name="fact"
+                    defaultValue={animal.randomFact ?? ""}
                 />
                 {
                     state.errors.fact && <p className="text-red-500">{state.errors.fact}</p>
                 }
             </div>
 
-            <Submit label="Add Animal"/>
+            <Submit label="Update Animal" />
 
         </form>
 

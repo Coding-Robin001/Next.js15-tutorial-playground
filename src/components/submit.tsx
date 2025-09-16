@@ -2,7 +2,11 @@
 
 import { useFormStatus } from "react-dom"
 
-const Submit = () => {
+type SubmitProps = {
+    label: string; // e.g. "Add Animal" or "Update Animal"
+}
+
+const Submit = ({ label }: SubmitProps) => {
     const { pending } = useFormStatus()
 
     return (
@@ -12,7 +16,7 @@ const Submit = () => {
             disabled={pending}
         >
             {
-                pending ? "submitting" : "Add Animal"
+                pending ? "submitting" : label
             }
         </button >
     )
