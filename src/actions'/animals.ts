@@ -41,7 +41,6 @@ export async function createAnimal(prevState: FormState, formdata: FormData) {
 }
 
 
-
 export async function editAnimal(id: string, prevState: FormState, formdata: FormData) {
 
     const name = formdata.get("name") as string

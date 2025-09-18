@@ -1,7 +1,6 @@
 import { prisma } from "./utils/prisma"
 import { AnimalCard } from "./app/animals-db/animals";
 
-
 export async function getAnimals(): Promise<AnimalCard[]> {
     try {
         await new Promise((resolve) => setTimeout(resolve, 1500));
